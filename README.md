@@ -11,7 +11,6 @@ For a more detailed explanation, see the
 of the Symfony Documentation.
 
 1) Download the Standard Edition
-
 --------------------------------
 
 If you've already downloaded the standard edition, and unpacked it somewhere
