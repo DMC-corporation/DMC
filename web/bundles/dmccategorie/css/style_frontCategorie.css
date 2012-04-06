@@ -1,0 +1,10 @@
+#divBandeauPrincipal{
+	background-image:url('http://1280x960.free.fr/images/fond-ecran-nature/fond-ecran-nature%20(9).JPG');
+	background-origin:padding-box, content-box;
+	padding:10px;
+}
+
+.margeGauchePourLes3Thumbails ,
+li.margeGauchePourLes3Thumbails {
+	margin-left:12px;
+}

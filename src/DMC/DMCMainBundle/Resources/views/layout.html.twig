@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Dessine moi un cadeau{% endblock %}</title>
+        {% block stylesheets %}
+			<link rel="stylesheet" href="{{ asset('bundles/dmcmain/css/bootstrap.css') }}" type="text/css" media="all" />
+			<!--<link rel="stylesheet" href="{{ asset('bundles/dmcmain/css/bootstrap-responsive.css') }}" type="text/css" media="all" />-->
+			<link rel="stylesheet" href="{{ asset('bundles/dmcmain/css/style.css') }}" type="text/css" media="all" />
+		{% endblock %}
+	
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+	<div class="container">
+	<div id="header">
+	{% block header %}
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner barreMenuSup">
+				<div class="container">
+				    <ul class="nav">
+					    <a class="brand" href="#">
+							<img class="logoPrincipal" src="http://dessinemoiuncadeau.com/img/logo3.png" alt="Dessine moi un cadeau" />
+						</a>
+						<li class="active">
+							<a href="{{ path('homepage') }}">Accueil</a>
+						</li>
+					</ul>
+					<ul class="nav pull-right">
+						<li><a href="{{ path('contact') }}">Contact</a></li>
+						<li><a href="{{ path('quisommesnous') }}">Qui sommes-nous?</a></li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+								Plus d'infos
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#">Action</a>
+								</li>
+								<li>
+									<a href="#">Another action</a>
+								</li>
+								<li>
+									<a href="#">Something else here</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="#">Separated link</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+	</div>
+	
+        {% block body %}
+		
+		
+		
+		{% endblock %}
+	
+	<div id="footer">
+		{% block footer %}
+		footer
+		{% endblock %}
+	</div>
+	</div>
+        {% block javascripts %}
+			<script src="{{ asset('bundles/dmcmain/js/jquery-1.7.1.js') }}"></script>
+			<script src="{{ asset('bundles/dmcmain/js/bootstrap.js') }}"></script>
+		{% endblock %}
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				{% block jqueryDocumentReady %}
+				{% endblock %}
+			});
+		</script>
+    </body>
+</html>

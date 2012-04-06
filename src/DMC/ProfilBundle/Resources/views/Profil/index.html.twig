@@ -1,0 +1,50 @@
+{% extends 'DMCMainBundle::Default/backOffice.html.twig' %}
+
+{% block title %}
+    {{ parent() }} - Liste des cat&eacute;gories
+{% endblock %}
+
+{% block body %}
+<h1>Liste des profiles</h1>
+<blockquote>
+Listing de toutes les profiles
+</blockquote>
+
+<table class="records_list table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('profil_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.nom }}</td>
+            <td>{{ entity.type }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('profil_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('profil_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('profil_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endblock %}

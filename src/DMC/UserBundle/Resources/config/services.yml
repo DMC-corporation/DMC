@@ -1,0 +1,7 @@
+parameters:
+#    dmc_user.example.class: DMC\UserBundle\Example
+
+services:
+#    dmc_user.example:
+#        class: %dmc_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

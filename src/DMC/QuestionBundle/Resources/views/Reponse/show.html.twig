@@ -1,0 +1,49 @@
+<h1>Reponse</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Libelle_masculin</th>
+            <td>{{ entity.libellemasculin }}</td>
+        </tr>
+        <tr>
+            <th>Libelle_feminin</th>
+            <td>{{ entity.libellefeminin }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ entity.type }}</td>
+        </tr>
+        <tr>
+            <th>Creation_date</th>
+            <td>{{ entity.creationdate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Update_date</th>
+            <td>{{ entity.updatedate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('reponse') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('reponse_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('reponse_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

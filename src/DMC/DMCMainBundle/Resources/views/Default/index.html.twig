@@ -1,0 +1,356 @@
+{% extends 'DMCMainBundle::layout.html.twig' %}
+{% block stylesheets %}
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('bundles/dmcmain/css/style_index.css') }}" type="text/css" media="all" />
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script>
+		function defineFourchettePrix(prixMin, prixMax){
+			$( "#slider-prix" ).slider("option", "values", [ prixMin, prixMax ]);
+			$( "#amountPrixMin" ).html( prixMin);
+			$( "#amountPrixMax" ).html( prixMax);
+		}
+		
+		function defineAge(age){
+			$( "#slider-age" ).slider("option", "value", age);
+			$( "#amountAge" ).html( age);
+		}
+		function defineProfil(id, pourcentage){
+			$( "#slider-profil"+id ).slider("option", "value", pourcentage);
+			$( "#amountProfil"+id ).html(pourcentage);
+			$( "#affichageBarProfil"+id ).width(pourcentage+"%");
+			if(pourcentage<30){
+				$( "#barProfil"+id ).removeClass("progress-success");
+				$( "#barProfil"+id ).removeClass("progress-danger");
+				$( "#barProfil"+id ).addClass("progress-danger");
+				$( "#slider-profil"+id ).removeClass("red");
+				$( "#slider-profil"+id ).removeClass("blue");
+				$( "#slider-profil"+id ).removeClass("green");
+				$( "#slider-profil"+id ).addClass("red");
+			}else if(pourcentage>70){
+				$( "#barProfil"+id ).removeClass("progress-success");
+				$( "#barProfil"+id ).removeClass("progress-danger");
+				$( "#barProfil"+id ).addClass("progress-success");
+				$( "#slider-profil"+id ).removeClass("red");
+				$( "#slider-profil"+id ).removeClass("blue");
+				$( "#slider-profil"+id ).removeClass("green");
+				$( "#slider-profil"+id ).addClass("green");
+			}else{
+				$( "#barProfil"+id ).removeClass("progress-success");
+				$( "#barProfil"+id ).removeClass("progress-danger");
+				$( "#slider-profil"+id ).removeClass("red");
+				$( "#slider-profil"+id ).removeClass("blue");
+				$( "#slider-profil"+id ).removeClass("green");
+				$( "#slider-profil"+id ).addClass("blue");
+			}
+		}
+		function hideOrShow(id){
+			if($("#"+id).is(":visible")){
+				$("#"+id).hide("blind", { direction: "vertical" }, 500);
+			}else{
+				$("#"+id).show("blind", { direction: "vertical" }, 500);
+			}
+		}				
+	</script>
+{% endblock %}
+{% block jqueryDocumentReady %}
+	{{ parent() }}
+	$( "#slider-prix" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 0, 0 ],
+			slide: function( event, ui ) {
+				defineFourchettePrix( ui.values[ 0 ], ui.values[ 1 ]);
+			}
+		});
+	
+	$( "#slider-age" ).slider({
+			range: "min",
+			value: 1,
+			min: 1,
+			max: 99,
+			slide: function( event, ui ) {
+				defineAge( ui.value );
+			}
+		});
+		
+	$( 'div[id^="slider-profil"]' ).slider({
+			range: "min",
+			value: 1,
+			min: 1,
+			max: 99,
+			slide: function( event, ui ) {
+				defineProfil( $(this).attr("id").substr(13), ui.value );
+			}
+		});
+	$("#controleModifManuelle").click(function () {
+		
+		if($("#modificationManuelle").is(":visible")){
+			$("#controleModifManuelle").html('+ De Profils');
+		}else{
+			$("#controleModifManuelle").html('- De Profils');
+		}
+		hideOrShow('modificationManuelle');
+	});
+	
+	$( '.sliderProfil' ).hover(
+		function() {
+			$(this).children('div').children('.iconeModifProfil').show();
+		},
+		function() {
+			$(this).children('div').children('.iconeModifProfil').hide();
+		});
+
+	
+	
+	hideOrShow('modificationManuelle');
+	defineFourchettePrix(10, 70);
+	defineAge(25);
+	defineProfil(1,90);
+	defineProfil(2,50);
+	defineProfil(3,10);
+	defineProfil(4,37);
+	defineProfil(5,90);
+	defineProfil(6,30);
+	defineProfil(7,90);
+	defineProfil(8,50);
+	defineProfil(9,10);
+	defineProfil(10,54);
+	defineProfil(11,90);
+	defineProfil(12,30);
+	defineProfil(13,90);
+	defineProfil(14,50);
+	defineProfil(15,10);
+			
+{% endblock %}
+{% block title %}
+    {{ parent() }} - Accueil
+{% endblock %}
+
+
+
+
+{% block body %}
+<section id="pageIndex">
+	<div id="divBandeauQuestion" class="row" >
+		<div class="bordureGrise fondBlanc">
+			<div class="row-fluid" >
+				<div class="span6">
+					<h3>Question</h3>				  
+					<h2>{{oQuestion.getLibelleMasculin()}}</h2>
+					<br/>
+					<div class="btn-group center" style="text-align:center">
+						<button class="btn btn-primary btn-large">Oui</button>
+						<button class="btn btn-primary btn-large">Non, la réponse aussi peut etre longue</button>
+						<button class="btn btn-primary btn-large">Lol</button>
+					</div>
+				</div>
+				<div class="span3">
+					<h3>Filtre Articles</h3>
+					<br/>
+					<p>
+						<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
+						<div id="slider-prix"></div>
+					</p>
+					<p>
+						<label>Age <span id="amountAge">25</span> ans</label>
+						<div id="slider-age"></div>
+					</p>	
+					<p>
+							<input type="radio" name="sex" value="male" /> H
+							<input type="radio" name="sex" value="female" /> F
+					</p>					
+				</div>
+				<div class="span3">
+					<h3>Profil actuel :</h3> 
+					<div class="row-fluid">
+						<div class="row-fluid">
+							<div class="span12">
+								<p>Roux <span id="amountProfil1">25</span>%</p>
+							</div>
+						</div>
+						<div class="row-fluid sliderProfil">
+							<div class="span9">
+								<div id="slider-profil1" ></div>
+							</div>
+							<div class="span3">
+								<div style="display: none" class="iconeModifProfil" >
+									<i class="icon-pencil"></i>
+									<i class="icon-remove"></i> 
+								</div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<p>Chiant <span id="amountProfil2">25</span>%</p>
+							</div>
+						</div>
+						<div class="row-fluid sliderProfil">
+							<div class="span9">
+								<div id="slider-profil2" ></div>
+							</div>
+							<div class="span3">
+								<div style="display: none" class="iconeModifProfil" >
+									<i class="icon-pencil"></i>
+									<i class="icon-remove"></i> 
+								</div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12">
+								<p>Muscl&eacute; <span id="amountProfil3">25</span>%</p>
+							</div>
+						</div>
+						<div class="row-fluid sliderProfil">
+							<div class="span9">
+								<div id="slider-profil3" ></div>
+							</div>
+							<div class="span3">
+								<div style="display: none" class="iconeModifProfil" >
+									<i class="icon-pencil"></i>
+									<i class="icon-remove"></i> 
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="empty" style="height: 5px;">
+		</div>
+		<div class="row-fluid">
+			<div class="bordureGrise fondBlanc">
+				<div id="BoutonManuelleProfil" class="row-fluid">
+					<table style="width: 100%;"> 
+						<tbody>
+							<tr>
+								<td style="width: 720px;">
+									<h4>Modification manuelle des profils</h4>
+								</td>
+								<td>
+									<div id="icone">
+										<i class="icon-arrow-down" ></i>
+									</div>
+								</td>
+								<td>
+									<div id="icone">
+										<div id="controleModifManuelle" class="btn btn-primary btn-mini">+ De Profils</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div id="modificationManuelle"  class="row-fluid">
+					<div class="span3">
+						{% for i in 4..6 %}
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
+								</div>
+							</div>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">
+									<div id="slider-profil{{i}}" ></div>
+								</div>
+								<div class="span3">
+									<div style="display: none" class="iconeModifProfil" >
+										<i class="icon-pencil"></i>
+										<i class="icon-remove"></i> 
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="span3">
+						{% for i in 7..9 %}
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
+								</div>
+							</div>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">
+									<div id="slider-profil{{i}}" ></div>
+								</div>
+								<div class="span3">
+									<div style="display: none" class="iconeModifProfil" >
+										<i class="icon-pencil"></i>
+										<i class="icon-remove"></i> 
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="span3">
+						{% for i in 10..12 %}
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
+								</div>
+							</div>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">
+									<div id="slider-profil{{i}}" ></div>
+								</div>
+								<div class="span3">
+									<div style="display: none" class="iconeModifProfil" >
+										<i class="icon-pencil"></i>
+										<i class="icon-remove"></i> 
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="span3">
+						{% for i in 13..15 %}
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
+								</div>
+							</div>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">
+									<div id="slider-profil{{i}}" ></div>
+								</div>
+								<div class="span3">
+									<div style="display: none" class="iconeModifProfil" >
+										<i class="icon-pencil"></i>
+										<i class="icon-remove"></i> 
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>	
+		</div>	
+	</div>
+
+	
+	<div class="row">
+	<div class="span10 offset1">
+      <h2>Resultats de recherche</h2>
+      <p>Voici la super selection.</p>
+      <ul id="carouselCateg" class="thumbnails">
+	  {% for i in 1..20 %}
+        <li class="span2">
+			<div class="thumbnail">
+				<img src="http://placehold.it/160x120" alt="">
+				<div class="caption">
+				  <h5>Thumbnail label</h5>
+				  <p>Le produit pour les roux, chiant et pas musclé</p>
+				  <p><a class="btn btn-primary" href="#">Voir les produits</a></p>
+				</div>
+			</div>
+		</li>
+	 {% endfor %}
+     </ul>
+    </div>
+  </div>
+
+{% endblock %}

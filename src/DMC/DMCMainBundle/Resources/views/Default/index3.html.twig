@@ -1,0 +1,278 @@
+{% extends 'DMCMainBundle::layout.html.twig' %}
+{% block stylesheets %}
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('bundles/dmcmain/css/style_index.css') }}" type="text/css" media="all" />
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script>
+		function defineFourchettePrix(prixMin, prixMax){
+			$( "#slider-prix" ).slider("option", "values", [ prixMin, prixMax ]);
+			$( "#amountPrixMin" ).html( prixMin);
+			$( "#amountPrixMax" ).html( prixMax);
+		}
+		
+		function defineAge(age){
+			$( "#slider-age" ).slider("option", "value", age);
+			$( "#amountAge" ).html( age);
+		}
+		function defineProfil(id, pourcentage){
+			$( "#slider-profil"+id ).slider("option", "value", pourcentage);
+			$( "#amountProfil"+id ).html(pourcentage);
+			$( "#affichageBarProfil"+id ).width(pourcentage+"%");
+			if(pourcentage<30){
+				$( "#barProfil"+id ).removeClass("progress-success");
+				$( "#barProfil"+id ).removeClass("progress-danger");
+				$( "#barProfil"+id ).addClass("progress-danger");
+				$( "#slider-profil"+id ).removeClass("red");
+				$( "#slider-profil"+id ).removeClass("blue");
+				$( "#slider-profil"+id ).removeClass("green");
+				$( "#slider-profil"+id ).addClass("red");
+			}else if(pourcentage>70){
+				$( "#barProfil"+id ).removeClass("progress-success");
+				$( "#barProfil"+id ).removeClass("progress-danger");
+				$( "#barProfil"+id ).addClass("progress-success");
+				$( "#slider-profil"+id ).removeClass("red");
+				$( "#slider-profil"+id ).removeClass("blue");
+				$( "#slider-profil"+id ).removeClass("green");
+				$( "#slider-profil"+id ).addClass("green");
+			}else{
+				$( "#barProfil"+id ).removeClass("progress-success");
+				$( "#barProfil"+id ).removeClass("progress-danger");
+				$( "#slider-profil"+id ).removeClass("red");
+				$( "#slider-profil"+id ).removeClass("blue");
+				$( "#slider-profil"+id ).removeClass("green");
+				$( "#slider-profil"+id ).addClass("blue");
+			}
+		}
+		function hideOrShow(id){
+			if($("#"+id).is(":visible")){
+				$("#"+id).hide("blind", { direction: "vertical" }, 500);
+			}else{
+				$("#"+id).show("blind", { direction: "vertical" }, 500);
+			}
+		}
+	</script>
+{% endblock %}
+{% block jqueryDocumentReady %}
+	{{ parent() }}
+	$( "#slider-prix" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 0, 0 ],
+			slide: function( event, ui ) {
+				defineFourchettePrix( ui.values[ 0 ], ui.values[ 1 ]);
+			}
+		});
+	
+	$( "#slider-age" ).slider({
+			range: "min",
+			value: 1,
+			min: 1,
+			max: 99,
+			slide: function( event, ui ) {
+				defineAge( ui.value );
+			}
+		});
+		
+	$( 'div[id^="slider-profil"]' ).slider({
+			range: "min",
+			value: 1,
+			min: 1,
+			max: 99,
+			slide: function( event, ui ) {
+				defineProfil( $(this).attr("id").substr(13), ui.value );
+			}
+		});
+	$("#controleModifManuelle").click(function () {
+		
+		if($("#modificationManuelle").is(":visible")){
+			$("#controleModifManuelle").html('Voir plus de Profils');
+		}else{
+			$("#controleModifManuelle").html('Voir moins de Profils');
+		}
+		hideOrShow('modificationManuelle');
+	});
+	
+	hideOrShow('modificationManuelle');
+	defineFourchettePrix(10, 70);
+	defineAge(25);
+	defineProfil(1,90);
+	defineProfil(2,50);
+	defineProfil(3,10);
+	defineProfil(4,5);
+	defineProfil(5,90);
+	defineProfil(6,30);
+			
+{% endblock %}
+{% block title %}
+    {{ parent() }} - Accueil
+{% endblock %}
+
+
+
+
+{% block body %}
+<section id="pageIndex">
+	<div class="row" >
+		<div class="hero-unit ">
+			<div class="row" >
+				<div class="span3 bordureGrise">
+					<h3>Filtre Articles</h3>
+					<br/>
+					<p>
+						<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
+						<div id="slider-prix"></div>
+					</p>
+					<p>
+						<label>Age <span id="amountAge">25</span> ans</label>
+						<div id="slider-age"></div>
+					</p>								
+				</div>
+				<div class="span4 bordureGrise">
+					<h3>Question</h3>				  
+					<h2>Desrious est-il roux? il faut garder en tête qu'une question peut etre longue !</h2>
+					<br/>
+					<div class="btn-group center" style="text-align:center">
+						<button class="btn btn-primary btn-large">Oui</button>
+						<button class="btn btn-primary btn-large">Non, la réponse aussi peut etre longue</button>
+						<button class="btn btn-primary btn-large">Lol</button>
+					</div>
+				</div>
+				<div class="span3 bordureGrise">
+					<h3>Profil actuel :</h3>
+					<p>Roux <span id="amountProfil1">25</span>%</p>
+					<!--<div id="barProfil1" class="progress progress-success progress-striped active">
+						<div id="affichageBarProfil1" class="bar" style="width: 1%;"></div>-->
+						<div id="slider-profil1"></div>
+					<!--</div>-->
+					<p>Chiant <span id="amountProfil2">25</span>%</p>
+					<!--<div id="barProfil2" class="progress progress-striped active">
+						<div id="affichageBarProfil2" class="bar" style="width: %;"></div>-->
+						<div id="slider-profil2"></div>
+					<!--</div>-->
+					<p>muscl&eacute; <span id="amountProfil3">25</span>%</p>
+					<!--<div id="barProfil3" class="progress progress-danger progress-striped active">
+						<div id="affichageBarProfil3" class="bar" style="width: 1%;"></div>-->
+						<div id="slider-profil3"></div>
+					<!--</div>-->
+					<br/>
+					<div id="controleModifManuelle" class="btn">Voir plus de Profils</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="span12">
+			<div id="modificationManuelle">
+				<h3>Modification manuelle des profils</h3>
+				<p>
+					<label>Egoiste <span id="amountProfil4">25</span>%</label>
+					<div id="slider-profil4"></div>
+				</p>
+				<p>
+					<label>Geek <span id="amountProfil5">25</span>%</label>
+					<div id="slider-profil5"></div>
+				</p>
+				<p>
+					<label>Beau <span id="amountProfil6">25</span>%</label>
+					<div id="slider-profil6"></div>
+				</p>
+			</div>
+		</div>	
+	</div>
+	<div class="row">
+	<div class="span8 offset2">
+      <h2>Resultats de recherche</h2>
+      <p>Voici la super selection.</p>
+      <ul id="carouselCateg" class="thumbnails">
+	  {% for i in 1..20 %}
+        <li class="span2">
+			<div class="thumbnail">
+				<img src="http://placehold.it/160x120" alt="">
+				<div class="caption">
+				  <h5>Thumbnail label</h5>
+				  <p>Le produit pour les roux, chiant et pas musclé</p>
+				  <p><a class="btn btn-primary" href="#">Voir les produits</a></p>
+				</div>
+			</div>
+		</li>
+	 {% endfor %}
+     </ul>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+
+<div class="row">
+  <div class="span10 hero-unit">
+    Level 1 of column
+    <div class="row">
+      <div class="span3">Level toto</div>
+      <div class="span3">Level asdasd</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<form class="well">
+  <label>Label name</label>
+  <input type="text" class="span3" placeholder="Type something�">
+  <span class="help-inline">Associated help text!</span>
+  <label class="checkbox">
+    <input type="checkbox"> Check me out
+  </label>
+  <button type="submit" class="btn">Submit</button>
+</form>
+
+
+
+
+
+<div class="row-fluid">
+  <div class="span12">
+    Level 1 of column
+    <div class="row-fluid">
+      <div class="span6">Level 2alan</div>
+      <div class="span6">Level 2 toto</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+	<div class="row">
+	
+	 <div class="span12">	 
+		<h3>toto</h3>
+	 </div>
+	</div>
+	 
+
+	<div class="row">
+		<div class="span12">
+		  <h2>Dessine moi un cadeau</h2>
+		  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec mauris nibh, sed varius erat. Sed sed ante nibh. Sed laoreet condimentum dui, nec ullamcorper magna ullamcorper pretium. Ut sagittis congue risus, nec sollicitudin lacus malesuada sed. Nulla facilisi. Vestibulum semper, tellus vitae fringilla aliquet, quam magna laoreet elit, at feugiat ante lorem eu augue. Quisque lobortis accumsan accumsan. .
+		  </p>
+		</div>
+	</div>
+	
+  
+  
+  
+  
+
+</html>
+{% endblock %}
+
