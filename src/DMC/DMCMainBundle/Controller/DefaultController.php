@@ -20,6 +20,15 @@ class DefaultController extends Controller
 		$oQuestion = $listeOQuestion[$num];
         return array('oQuestion' => $oQuestion);
     }
+
+    /**
+     * @Route("/test", name="pageTest")
+     * @Template()
+     */
+    public function testAction()
+    {
+        return array();
+    }
 	
 	/**
      * @Route("/backoffice", name="backoffice")

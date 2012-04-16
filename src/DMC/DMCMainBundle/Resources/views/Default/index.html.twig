@@ -6,48 +6,9 @@
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script src="{{ asset('bundles/dmcmain/js/DMC_gestionSlider.js') }}"></script>
 	<script>
-		function defineFourchettePrix(prixMin, prixMax){
-			$( "#slider-prix" ).slider("option", "values", [ prixMin, prixMax ]);
-			$( "#amountPrixMin" ).html( prixMin);
-			$( "#amountPrixMax" ).html( prixMax);
-		}
-		
-		function defineAge(age){
-			$( "#slider-age" ).slider("option", "value", age);
-			$( "#amountAge" ).html( age);
-		}
-		function defineProfil(id, pourcentage){
-			$( "#slider-profil"+id ).slider("option", "value", pourcentage);
-			$( "#amountProfil"+id ).html(pourcentage);
-			$( "#affichageBarProfil"+id ).width(pourcentage+"%");
-			if(pourcentage<30){
-				$( "#barProfil"+id ).removeClass("progress-success");
-				$( "#barProfil"+id ).removeClass("progress-danger");
-				$( "#barProfil"+id ).addClass("progress-danger");
-				$( "#slider-profil"+id ).removeClass("red");
-				$( "#slider-profil"+id ).removeClass("blue");
-				$( "#slider-profil"+id ).removeClass("green");
-				$( "#slider-profil"+id ).addClass("red");
-			}else if(pourcentage>70){
-				$( "#barProfil"+id ).removeClass("progress-success");
-				$( "#barProfil"+id ).removeClass("progress-danger");
-				$( "#barProfil"+id ).addClass("progress-success");
-				$( "#slider-profil"+id ).removeClass("red");
-				$( "#slider-profil"+id ).removeClass("blue");
-				$( "#slider-profil"+id ).removeClass("green");
-				$( "#slider-profil"+id ).addClass("green");
-			}else{
-				$( "#barProfil"+id ).removeClass("progress-success");
-				$( "#barProfil"+id ).removeClass("progress-danger");
-				$( "#slider-profil"+id ).removeClass("red");
-				$( "#slider-profil"+id ).removeClass("blue");
-				$( "#slider-profil"+id ).removeClass("green");
-				$( "#slider-profil"+id ).addClass("blue");
-			}
-		}
-		function hideOrShow(id){
+	function hideOrShow(id){
 			if($("#"+id).is(":visible")){
 				$("#"+id).hide("blind", { direction: "vertical" }, 500);
 			}else{
@@ -57,7 +18,29 @@
 	</script>
 {% endblock %}
 {% block jqueryDocumentReady %}
-	{{ parent() }}
+	{{ parent() }}	
+	// ------------------------------------------>FONCTION REMONTER
+	$(window).scroll(function() {
+		if($(window).scrollTop() == 0){
+		$('#scrollToTop').fadeOut("fast");
+		} else {
+		if($('#scrollToTop').length == 0){
+
+		}
+		$('#scrollToTop').fadeIn("fast");
+		}
+	});
+
+	$('#scrollToTop a').live('click', function(event){
+	event.preventDefault();
+	$('html,body').animate({scrollTop: 0}, 'slow');
+	});
+	// ------------------------------------------>FONCTION REMONTER
+
+	
+	
+	
+	
 	$( "#slider-prix" ).slider({
 			range: true,
 			min: 0,
@@ -87,23 +70,29 @@
 				defineProfil( $(this).attr("id").substr(13), ui.value );
 			}
 		});
-	$("#controleModifManuelle").click(function () {
 		
+	
+	// ------------------------------------------>FONCTION Afficher ou pas les profils
+	$("#controleModifManuelle").click(function () {		
 		if($("#modificationManuelle").is(":visible")){
-			$("#controleModifManuelle").html('+ De Profils');
+			$("#controleModifManuelle").html('<a href="#"><h5><i class="icon-arrow-down" ></i> Plus de profils</h5></a>');
 		}else{
-			$("#controleModifManuelle").html('- De Profils');
+			$("#controleModifManuelle").html('<a href="#"><h5><i class="icon-arrow-up" ></i> Moins de profils</h5></a>');
 		}
 		hideOrShow('modificationManuelle');
 	});
+	// ------------------------------------------>FONCTION Afficher ou pas les profils
 	
+	
+	// ------------------------------------------>AFfiche Pencil Ou pas
 	$( '.sliderProfil' ).hover(
 		function() {
-			$(this).children('div').children('.iconeModifProfil').show();
+			$(this).find('i[id^="iconeModifProfil"]').show();
 		},
 		function() {
-			$(this).children('div').children('.iconeModifProfil').hide();
+			$(this).find('i[id^="iconeModifProfil"]').hide();
 		});
+	// ------------------------------------------>AFfiche Pencil Ou pas
 
 	
 	
@@ -125,6 +114,15 @@
 	defineProfil(13,90);
 	defineProfil(14,50);
 	defineProfil(15,10);
+	
+	$( 'div[id^="slider-profil"]' ).each(function() {
+		setNonEditableJaugeProfil($(this).attr("id").substr(13));
+	});
+	
+	messageAccueil = '<p><strong> Dessine moi un cadeau</strong> le premier moteur de recherche psychologique, il faut répondre a des question �  la con pour avoir un cadeau de greg l\'ouvrier de batard. ça va etre un truc de fou trop bien faut mettre un bla bla qui va bien pour expliquer le concept ici.<br/><i class="icon-arrow-down"></i> <strong> Commencez �  répondre aux questions!</strong><p/>';
+	
+	afficherMessageInfo(messageAccueil, 'alert-error' ,0);
+	
 			
 {% endblock %}
 {% block title %}
@@ -135,84 +133,88 @@
 
 
 {% block body %}
-<section id="pageIndex">
-	<div id="divBandeauQuestion" class="row" >
-		<div class="bordureGrise fondBlanc">
+	
+<div class="section">
+	<div class="row" >
+		<div class="fondDiv">
+			
 			<div class="row-fluid" >
 				<div class="span6">
-					<h3>Question</h3>				  
-					<h2>{{oQuestion.getLibelleMasculin()}}</h2>
-					<br/>
-					<div class="btn-group center" style="text-align:center">
-						<button class="btn btn-primary btn-large">Oui</button>
-						<button class="btn btn-primary btn-large">Non, la réponse aussi peut etre longue</button>
-						<button class="btn btn-primary btn-large">Lol</button>
+					<div class="fondDiv">
+						<h3>Question</h3>				  
+						<h2>{{oQuestion.getLibelleMasculin()}}</h2>
+						<br/>
+						<div class="btn-group center" style="text-align:center">
+							<button class="btn btn-primary btn-large" data-toggle="button" data-loading-text="loading stuff...">Oui</button>
+							<button class="btn btn-primary btn-large" data-loading-text="loading stuff...">Non, la réponse aussi peut etre longue</button>
+							<button class="btn btn-primary btn-large">Lol</button>
+						</div>
 					</div>
 				</div>
-				<div class="span3">
-					<h3>Filtre Articles</h3>
-					<br/>
-					<p>
-						<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
-						<div id="slider-prix"></div>
-					</p>
-					<p>
-						<label>Age <span id="amountAge">25</span> ans</label>
-						<div id="slider-age"></div>
-					</p>	
-					<p>
-							<input type="radio" name="sex" value="male" /> H
-							<input type="radio" name="sex" value="female" /> F
-					</p>					
-				</div>
-				<div class="span3">
-					<h3>Profil actuel :</h3> 
-					<div class="row-fluid">
-						<div class="row-fluid">
-							<div class="span12">
-								<p>Roux <span id="amountProfil1">25</span>%</p>
+				<div class="span6">
+					
+					<div class="row-fluid" >
+						<div class="span6">
+							<div class="fondDiv">
+								<h3>Filtre Articles</h3>
+								<br/>
+								<p>
+									<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
+									<div id="slider-prix"></div>
+								</p>
+								<p>
+									<label>Age <span id="amountAge">25</span> ans</label>
+									<div id="slider-age"></div>
+								</p>	
+								<p>
+										<input type="radio" name="sex" value="male" /> H
+										<input type="radio" name="sex" value="female" /> F
+								</p>	
 							</div>
 						</div>
-						<div class="row-fluid sliderProfil">
-							<div class="span9">
-								<div id="slider-profil1" ></div>
-							</div>
-							<div class="span3">
-								<div style="display: none" class="iconeModifProfil" >
-									<i class="icon-pencil"></i>
-									<i class="icon-remove"></i> 
-								</div>
-							</div>
-						</div>
-						<div class="row-fluid">
-							<div class="span12">
-								<p>Chiant <span id="amountProfil2">25</span>%</p>
-							</div>
-						</div>
-						<div class="row-fluid sliderProfil">
-							<div class="span9">
-								<div id="slider-profil2" ></div>
-							</div>
-							<div class="span3">
-								<div style="display: none" class="iconeModifProfil" >
-									<i class="icon-pencil"></i>
-									<i class="icon-remove"></i> 
-								</div>
-							</div>
-						</div>
-						<div class="row-fluid">
-							<div class="span12">
-								<p>Muscl&eacute; <span id="amountProfil3">25</span>%</p>
-							</div>
-						</div>
-						<div class="row-fluid sliderProfil">
-							<div class="span9">
-								<div id="slider-profil3" ></div>
-							</div>
-							<div class="span3">
-								<div style="display: none" class="iconeModifProfil" >
-									<i class="icon-pencil"></i>
-									<i class="icon-remove"></i> 
+						<div class="span6">
+							<div class="fondDiv">
+								<h3>Profil actuel :</h3> 
+								<div class="row-fluid">
+									<div class="row-fluid">
+										<div class="span12">
+											<p>Roux <span id="amountProfil1">25</span>%</p>
+										</div>
+									</div>
+									<div class="row-fluid sliderProfil">
+										<div class="span9">
+											<div id="slider-profil1" ></div>
+										</div>
+										<div class="span3">
+											<i id="iconeModifProfil1" style="display: none" class="icon-pencil"></i>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span12">
+											<p>Chiant <span id="amountProfil2">25</span>%</p>
+										</div>
+									</div>
+									<div class="row-fluid sliderProfil">
+										<div class="span9">
+											<div id="slider-profil2" ></div>
+										</div>
+										<div class="span3">
+											<i id="iconeModifProfil2" style="display: none" class="icon-pencil"></i>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span12">
+											<p>Muscl&eacute; <span id="amountProfil3">25</span>%</p>
+										</div>
+									</div>
+									<div class="row-fluid sliderProfil">
+										<div class="span9">
+											<div id="slider-profil3" ></div>
+										</div>
+										<div class="span3">
+											<i id="iconeModifProfil3" style="display: none" class="icon-pencil"></i>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -220,137 +222,166 @@
 				</div>
 			</div>
 		</div>
-		<div id="empty" style="height: 5px;">
-		</div>
-		<div class="row-fluid">
-			<div class="bordureGrise fondBlanc">
-				<div id="BoutonManuelleProfil" class="row-fluid">
-					<table style="width: 100%;"> 
-						<tbody>
-							<tr>
-								<td style="width: 720px;">
-									<h4>Modification manuelle des profils</h4>
-								</td>
-								<td>
-									<div id="icone">
-										<i class="icon-arrow-down" ></i>
-									</div>
-								</td>
-								<td>
-									<div id="icone">
-										<div id="controleModifManuelle" class="btn btn-primary btn-mini">+ De Profils</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+	</div>
+
+	<div class="row">
+		<div class="fondDiv">
+			<div class="row-fluid">
+				<div class="span8">
+					<h4>Modification manuelle des profils</h4>
 				</div>
-				<div id="modificationManuelle"  class="row-fluid">
-					<div class="span3">
-						{% for i in 4..6 %}
-							<div class="row-fluid">
-								<div class="span12">
-									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
-								</div>
-							</div>
-							<div class="row-fluid sliderProfil">
-								<div class="span9">
-									<div id="slider-profil{{i}}" ></div>
-								</div>
-								<div class="span3">
-									<div style="display: none" class="iconeModifProfil" >
-										<i class="icon-pencil"></i>
-										<i class="icon-remove"></i> 
+				<div id="controleModifManuelle" class="span4">
+					<a href="#"><h5><i class="icon-arrow-down" ></i> Plus de profils</h5></a>
+				</div>
+				
+
+			</div>
+			<div id="modificationManuelle"  class="row-fluid">
+				<div class="fondDiv">
+					<div class="row-fluid">
+						<div class="span3">
+							{% for i in 4..6 %}
+								<div class="row-fluid">
+									<div class="span12">
+										<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
 									</div>
 								</div>
-							</div>
-						{% endfor %}
-					</div>
-					<div class="span3">
-						{% for i in 7..9 %}
-							<div class="row-fluid">
-								<div class="span12">
-									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
-								</div>
-							</div>
-							<div class="row-fluid sliderProfil">
-								<div class="span9">
-									<div id="slider-profil{{i}}" ></div>
-								</div>
-								<div class="span3">
-									<div style="display: none" class="iconeModifProfil" >
-										<i class="icon-pencil"></i>
-										<i class="icon-remove"></i> 
+								<div class="row-fluid sliderProfil">
+									<div class="span9">
+										<div id="slider-profil{{i}}" ></div>
+									</div>
+									<div class="span3">
+										<i id="iconeModifProfil{{i}}" style="display: none" class="icon-pencil"></i>
 									</div>
 								</div>
-							</div>
-						{% endfor %}
-					</div>
-					<div class="span3">
-						{% for i in 10..12 %}
-							<div class="row-fluid">
-								<div class="span12">
-									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
-								</div>
-							</div>
-							<div class="row-fluid sliderProfil">
-								<div class="span9">
-									<div id="slider-profil{{i}}" ></div>
-								</div>
-								<div class="span3">
-									<div style="display: none" class="iconeModifProfil" >
-										<i class="icon-pencil"></i>
-										<i class="icon-remove"></i> 
+							{% endfor %}
+						</div>
+						<div class="span3">
+							{% for i in 7..9 %}
+								<div class="row-fluid">
+									<div class="span12">
+										<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
 									</div>
 								</div>
-							</div>
-						{% endfor %}
-					</div>
-					<div class="span3">
-						{% for i in 13..15 %}
-							<div class="row-fluid">
-								<div class="span12">
-									<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
-								</div>
-							</div>
-							<div class="row-fluid sliderProfil">
-								<div class="span9">
-									<div id="slider-profil{{i}}" ></div>
-								</div>
-								<div class="span3">
-									<div style="display: none" class="iconeModifProfil" >
-										<i class="icon-pencil"></i>
-										<i class="icon-remove"></i> 
+								<div class="row-fluid sliderProfil">
+									<div class="span9">
+										<div id="slider-profil{{i}}" ></div>
+									</div>
+									<div class="span3">
+										<i id="iconeModifProfil{{i}}" style="display: none" class="icon-pencil"></i>
 									</div>
 								</div>
-							</div>
-						{% endfor %}
+							{% endfor %}
+						</div>
+						<div class="span3">
+							{% for i in 10..12 %}
+								<div class="row-fluid">
+									<div class="span12">
+										<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
+									</div>
+								</div>
+								<div class="row-fluid sliderProfil">
+									<div class="span9">
+										<div id="slider-profil{{i}}" ></div>
+									</div>
+									<div class="span3">
+										<i id="iconeModifProfil{{i}}" style="display: none" class="icon-pencil"></i>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						<div class="span3">
+							{% for i in 13..15 %}
+								<div class="row-fluid">
+									<div class="span12">
+										<p>Roux {{i}} - <span id="amountProfil{{i}}">25</span>%</p>
+									</div>
+								</div>
+								<div class="row-fluid sliderProfil">
+									<div class="span9">
+										<div id="slider-profil{{i}}" ></div>
+									</div>
+									<div class="span3">
+										<i id="iconeModifProfil{{i}}" style="display: none" class="icon-pencil"></i>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
 					</div>
 				</div>
 			</div>	
 		</div>	
-	</div>
+	</div>	
+
 
 	
 	<div class="row">
-	<div class="span10 offset1">
-      <h2>Resultats de recherche</h2>
-      <p>Voici la super selection.</p>
-      <ul id="carouselCateg" class="thumbnails">
-	  {% for i in 1..20 %}
-        <li class="span2">
-			<div class="thumbnail">
-				<img src="http://placehold.it/160x120" alt="">
-				<div class="caption">
-				  <h5>Thumbnail label</h5>
-				  <p>Le produit pour les roux, chiant et pas musclé</p>
-				  <p><a class="btn btn-primary" href="#">Voir les produits</a></p>
+		<div class="span10 offset1">
+			<div class="fondDiv">
+				<div class="row-fluid" >
+					<div class="span7">
+						<h2>Resultats de recherche</h2>
+					</div>
+					
+					<div class="span5">
+						<div class="pagination">
+							<ul>
+								<li><a href="#">Prev</a></li>
+								<li class="active">
+									<a href="#">1</a>
+								</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">Next</a></li>
+							</ul>
+						</div> 
+					 
+					</div> 
+				</div> 
+				<div class="row-fluid">
+					<ul id="carouselCateg" class="thumbnails">
+					{% for i in 1..16 %}
+					<li class="span2">
+						<div class="thumbnail">
+							<img src="http://image.made-in-china.com/2f1j00IMKaSwZgSmor/Rattan-Table-Chair-Garden-Table-Chair-Outdoor-Table-Chair-Dining-Table-Chair-Wicker-Table-NC7019-.jpg" alt="">
+							<div class="caption">
+							  <h5>Thumbnail label</h5>
+							  <p>Le produit pour les roux, chiant et pas musclé</p>
+							  <p><a class="btn btn-primary" href="{{ path('front_categorie' , {'id': '1'}) }}">Voir les produits</a></p>
+							</div>
+						</div>
+					</li>
+					{% endfor %}
+					</ul>
 				</div>
+				<div class="row-fluid" >
+					<div class="span7">
+						<div id="scrollToTop">
+							<a href="#">
+							<h5><i class="icon-arrow-up"></i> Remonter</h5>
+							</a>
+						</div>	
+					</div>
+					
+					<div class="span5">
+						<div class="pagination">
+							<ul>
+								<li><a href="#">Prev</a></li>
+								<li class="active">
+									<a href="#">1</a>
+								</li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">Next</a></li>
+							</ul>
+						</div> 
+					 
+					</div> 
+				</div> 				
 			</div>
-		</li>
-	 {% endfor %}
-     </ul>
-    </div>
-  </div>
-
+		</div>
+	</div>
+</div>	
 {% endblock %}

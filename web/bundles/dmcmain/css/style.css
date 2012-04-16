@@ -1,6 +1,18 @@
 body{
 	margin-top:140px;
-	background-color:#DCDCDC;
+	background-color:white;
+	background-image:url('http://dessinemoiuncadeau.com/images/fond.jpg');
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+	background-position:0px 40px;
+}
+
+#divInfo{
+	position:absolute;
+	left:336px;
+	top:46px;
+	width:700px;
+	z-index:2000;
 }
 
 .barreMenuSup{
@@ -8,20 +20,76 @@ body{
 	background-color:red;
 }
 
+
 .fondGris{
 	background-color:#EEEEEE;
 }
 
 #slider { margin: 10px; }
-
-.bordureGrise{
-	border: 1px solid #DDDDDD;
-    border-radius: 4px 4px 4px 4px;
-	padding:4px;
-	}
 	
 .fondBlanc{
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.fondImage{
+	/*background-image:url('http://www.punb.com.my/v2/images/flippingbook/abstract_background_green.jpg');
+	background-image:url('http://ideiasdeorigemportuguesa.org/images/background_grey2.jpg');
+	background-image:url('http://www.schattauer.de/sonderdrucke/NHK/Krewel_Meuselbach/files/background_grey_schattauer.jpg');
+	background-image:url('http://dpm-properties.com/images/grey_back.png');
+	background-image:url('http://papillondereve.p.a.pic.centerblog.net/o/9b7c42ee.jpg');*/
+	background-image:url('http://www.chromaticfactory-design.fr/wp-content/uploads/fond_site2.jpg');
+}
+
+
+
+
+.fondDiv h3{
+	margin:-4px;
+	margin-bottom:5px;
+	padding:5px;
+	background-color:#1b79ad;
+	color:white;
+	border-radius: 3px 3px 0px 0px;
+}
+
+
+.section .fondDiv{
+    background-color: rgba(237, 243, 255, 0.92);
+	border: 1px solid #7DB2CE;
+	border-radius: 4px 4px 4px 4px;
+	padding:4px;
+	margin:4px;
+}
+
+.section  .fondDiv .fondDiv{
+    background-color: rgba(255, 255, 255, 0.3);
+	border: 1px solid #C5DEEA;
+}
+
+.section .fondDiv .fondDiv .fondDiv{
+	border: 1px solid #E8F2F7;
+}
+
+.section .fondDiv .fondDiv .fondDiv .fondDiv{
+	border: 1px solid #E8F2F7;
+}
+
+.section .fondDiv .fondDiv .fondDiv .fondDiv .fondDiv{
+	background-color:white;
+	border-color:black;
+}
+
+.shine:hover{
+    background-color: rgba(255, 255, 255, 0.7);
+	border: 2px solid red;
+	border-radius: 4px 4px 4px 4px;
+	padding:4px;
+	margin:4px;
+}
+
+
+.sliderProfil { 
+	height:18px;
 }
 
 .red .ui-slider-range { 
@@ -37,3 +105,7 @@ body{
 }
 .blue .ui-slider-handle { border-color: #729fcf; }
 
+.nonEditable .ui-slider-handle{
+	height:0px;
+	width:0px;
+}

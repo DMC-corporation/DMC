@@ -1,7 +1,109 @@
 {% extends 'DMCMainBundle::layout.html.twig' %}
 {% block stylesheets %}
+	<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 	{{ parent() }}
 	<link rel="stylesheet" href="{{ asset('bundles/dmccategorie/css/style_frontCategorie.css') }}" type="text/css" media="all" />
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/dmcmain/js/DMC_gestionSlider.js') }}"></script>
+{% endblock %}
+{% block jqueryDocumentReady %}
+	{{ parent() }}
+	
+		
+	$(window).scroll(function() {
+		if($(window).scrollTop() == 0){
+		$('#scrollToTop').fadeOut("fast");
+		} else {
+		if($('#scrollToTop').length == 0){
+
+		}
+		$('#scrollToTop').fadeIn("fast");
+		}
+	});
+	
+
+	$('#scrollToTop a').live('click', function(event){
+	event.preventDefault();
+	$('html,body').animate({scrollTop: 0}, 'slow');
+	});
+	
+	
+	
+	
+	
+	$( "#slider-prix" ).slider({
+			range: true,
+			min: 0,
+			max: 500,
+			values: [ 0, 0 ],
+			slide: function( event, ui ) {
+				defineFourchettePrix( ui.values[ 0 ], ui.values[ 1 ]);
+			}
+		});
+	
+	$( "#slider-age" ).slider({
+			range: "min",
+			value: 1,
+			min: 1,
+			max: 99,
+			slide: function( event, ui ) {
+				defineAge( ui.value );
+			}
+		});
+		
+	$( 'div[id^="slider-profil"]' ).slider({
+			range: "min",
+			value: 1,
+			min: 1,
+			max: 99,
+			slide: function( event, ui ) {
+				defineProfil( $(this).attr("id").substr(13), ui.value );
+			}
+		});
+	$("#controleModifManuelle").click(function () {
+		
+		if($("#modificationManuelle").is(":visible")){
+			$("#controleModifManuelle").html('+ De Profils');
+		}else{
+			$("#controleModifManuelle").html('- De Profils');
+		}
+		hideOrShow('modificationManuelle');
+	});
+	
+	$( '.sliderProfil' ).hover(
+		function() {
+			$(this).children('div').children('.iconeModifProfil').show();			
+		},
+		function() {
+			$(this).children('div').children('.iconeModifProfil').hide();
+		});
+		
+	$( '.BlocEntete' ).hover(
+		function() {
+			$('.Retour').show();
+			
+		},
+		function() {
+			$('.Retour').hide();
+		});	
+		
+
+	defineFourchettePrix(10, 70);
+	defineAge(25);
+	defineProfil(1,90);
+	defineProfil(2,50);
+	defineProfil(3,10);
+	
+	setNonEditableJaugeProfil(1);
+	setNonEditableJaugeProfil(2);
+	setNonEditableJaugeProfil(3);
+	
+	messageAccueil = '<p><strong> Alan est gay !</strong><p/>';
+	
+	afficherMessageInfo(messageAccueil, 'alert-info' ,3);
+			
 {% endblock %}
 
 {% block title %}
@@ -11,61 +113,52 @@
 	
 {% block body %}
 <div class="section">
-	<div class="row">
-		<div id="divBandeauPrincipal" class="span12">
+
+	
+	<div class="row">  
+		<div class="fondDiv">
 			<div class="row-fluid">
-				<div class="span3">
-					<div class="bordureGrise">
+				<div class="span2">
+					<div class="fondDiv">
+					
+						<h4><i class="icon-arrow-left"></i> <a href="{{ path('homepage')}}">Retour</a></h4>	
+					</div>						
+				</div>
+				<div class="span10">
+					<div class="fondDiv">
 						<div class="row-fluid">
-							<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
-							<h3>Gros Menager</h3>				  
-							<h2>Refrigirateur</h2>
+							<h5>
+								<a href="#">Dessine Moi Un Cadeau</a>
+								>
+								<a href="#">Categorie</a>
+								>
+								<a href="#">Gros menager</a>
+								>
+								<a href="#">Artcile</a>
+								>
+								<a href="#">Article Frigo</a>
+							</h5>
 						</div>
-						<div class="row-fluid">
-							<div class="span8">
-								<ul class="thumbnails">
-									<li class="span2">
-										<div class="thumbnail">
-											<img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div class="span4">
-								<ul class="thumbnails">
-									<li class="span1">
-										<div class="thumbnail">
-											<img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">
-										</div>
-									</li>
-									<li class="span1">
-										<div class="thumbnail">
-											<img src="http://storage3d.com/storage/2010.05/bb547056b953b798973664629f38fdb4.jpg" alt="">
-										</div>
-									</li>				  
-								</ul>
-							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+
+	
+	<div class="row BlocEntete" >
+		<div class="fondDiv">
+			<div class="row-fluid" >
+				<div class="span3">				
+					<div class="row-fluid">
+						<div class="fondDiv">
+							<h3>Jeux</h3>				  
+							<h2>Console - Jeux video</h2>
 						</div>
-						<div class="row-fluid">
-							<ul class="thumbnails">
-							  <li class="span1">
-								<div class="thumbnail">
-								  <img src="http://www.max-models.eu/wp-content/uploads/2012/02/Whirpool-fridge-3d-model.jpg" alt="">
-								</div>
-							  </li>
-							  <li class="margeGauchePourLes3Thumbails span1">
-								<div class="thumbnail">
-								  <img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">							  
-								</div>
-							  </li>
-							  <li class="margeGauchePourLes3Thumbails span1">
-								<div class="thumbnail">
-								  <img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">							  
-								</div>
-							  </li>
-							</ul>
-						</div>
-						
+					</div>
+					
+					<div class="row-fluid">
 						<div class="row-fluid">
 							<div class="span2">
 								<i class="icon-info-sign"></i>
@@ -97,156 +190,274 @@
 							<div class="span8">
 								<h5>Signaler un abus</h5>	
 							</div>							
-						</div>							
-						
+						</div>
+					</div>
+					
+				</div>
+				<div class="span3">	
+					<div class="row-fluid">
+						<div class="row-fluid">
+							<div class="span8">
+								<ul class="thumbnails">
+									<li class="span2">
+										<div class="thumbnail">
+											<img src="http://www.futura-sciences.com/uploads/tx_oxcsfutura/img/xbox360.jpg" alt="">
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="span4">
+								<ul class="thumbnails">
+									<li class="span1">
+										<div class="thumbnail">
+											<img src="http://images.qctop.com/upload/xbox360-42790.jpg" alt="">
+										</div>
+									</li>
+									<li class="span1">
+										<div class="thumbnail">
+											<img src="http://www.ultimateps3.fr/upload/big/PS3imageups311012012.jpg" alt="">
+										</div>
+									</li>				  
+								</ul>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<ul class="thumbnails">
+							  <li class="span1">
+								<div class="thumbnail">
+								  <img src="http://www.mobile24.fr/images/design/design/com/brend-categories/sony_playstation_2_accessor.jpg" alt="">
+								</div>
+							  </li>
+							  <li class="margeGauchePourLes3Thumbails span1">
+								<div class="thumbnail">
+								  <img src="http://www.gametronik.com/site/rubriques/megadrive/Medias/Megadrive%202.jpg" alt="">							  
+								</div>
+							  </li>
+							  <li class="margeGauchePourLes3Thumbails span1">
+								<div class="thumbnail">
+								  <img src="http://www.run-tech.fr/images/reparation/consoles/ds/ds.jpg" alt="">							  
+								</div>
+							  </li>
+							</ul>
+						</div>						
+					</div>			
+				</div>	
+	
+				<div class="span3">
+					<div class="fondDiv">
+						<h3>Filtre Articles</h3>
+						<br/>
+						<p>
+							<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
+							<div id="slider-prix"></div>
+						</p>
+						<p>
+							<label>Age <span id="amountAge">25</span> ans</label>
+							<div id="slider-age"></div>
+						</p>	
+						<p>
+								<input type="radio" name="sex" value="male" /> H
+								<input type="radio" name="sex" value="female" /> F
+						</p>	
 					</div>
 				</div>
-				<div class="span9">
-					<div class="bordureGrise">
+				<div class="span3">
+					<div class="fondDiv">
+						<h3>Profil actuel :</h3> 
 						<div class="row-fluid">
-							<div class="span6">
-								<h3>Gros Menager</h3>				  
-								<h2>Refrégirateur</h2>
-								<img src="http://www.everydayminimalist.com/wp-content/uploads/2010/08/fridge.jpg" alt="">
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Roux <span id="amountProfil1">25</span>%</p>
+								</div>
 							</div>
-							<div class="span6">
-								<p class="bordureGrise">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sapien ligula, sodales vel pulvinar quis, mattis non eros. Ut condimentum laoreet nunc. Morbi blandit erat nec purus tincidunt ac luctus quam dignissim. Integer sed lacus lorem, id hendrerit quam. Nullam sed lorem sapien, vi magna posuere hendrerit. Duis posuere neque tellus. Proin facilisis interdum dignissim.<br/>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">							
+									<div id="slider-profil1"></div>						
+								</div>					
+							</div>
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Chiant <span id="amountProfil2">25</span>%</p>
+								</div>
+							</div>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">
+									<div id="slider-profil2" ></div>
+								</div>
+							</div>
+							<div class="row-fluid">
+								<div class="span12">
+									<p>Muscl&eacute; <span id="amountProfil3">25</span>%</p>
+								</div>
+							</div>
+							<div class="row-fluid sliderProfil">
+								<div class="span9">
+									<div id="slider-profil3" ></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>	
+		</div>	
+	</div>
+	
+	
+	<div id="empty" style="height: 2px;">
+	</div>
+	
+	
 
-Integer commodo imperdiet aliquam. Donec dapibus, tortor quis suscipit dignistum lorem ultrices. Nullam placerat condimentum dolor, id sollicitudin sem consequat commodo.<br/>
+	
 
-								</p>
+	<div class="row">
+		<div class="fondDiv">
+			<div class="row-fluid" >
+				<div class="span2">
+					<h5>Triez par :</h5>					
+				</div>
+				<div class="span10">
+					<div class="row-fluid">				
+						<div class="span2">
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-heart"></i>
+								</div>
+								<div class="span10">
+									<h5>Clic</h5>
+								</div>							
+							</div>
+						</div>
+						<div class="span2">
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-flag"></i>
+								</div>
+								<div class="span10">
+									<h5>Prix</h5>
+								</div>							
+							</div>
+						</div>
+						<div class="span2">
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-screenshot"></i>
+								</div>
+								<div class="span10">
+									<h5>Note</h5>
+								</div>							
+							</div>
+						</div>	
+						<div class="span2">
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-eye-open"></i>
+								</div>
+								<div class="span10">
+									<h5>Date</h5>
+								</div>							
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		
-	</div>
-	<div id="empty" style="height: 18px;">
-	</div>
+	
 	<div class="row">
-		<div id="divBandeauPrincipal" class="span12">	
+		<div class="fondDiv">
+			<div class="row-fluid" >
+				<div class="span8">
+					<h2>Resultats de recherche</h2>
+				</div>
+				
+				<div class="span4">
+					<div class="pagination">
+						<ul>
+							<li><a href="#">Prev</a></li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">Next</a></li>
+						</ul>
+					</div> 
+				 
+				</div> 
+			</div> 
+			<div class="row-fluid" >
+				<ul id="carouselCateg" class="thumbnails">
+				{% for i in 1..10 %}
+					<li class="span12 ">
+						<div class="fondDiv shine">
+							<div class="row-fluid">
+								<div class="span4">
+									<img src="http://data.blogs.laprovence.com/high-tech-et-jeux-video.blog/perso/aaaxbox360.jpg" width="200px" alt="">			
+								</div>
+								<div class="span5">
+									<div class="caption">
+										<h5>Xbox 360</h5>
+										<p>Derniere console de chez microsoft</p>
+										<div class="row-fluid">
+											<div class="span1">
+												<img src="http://www.tunisland.com/front_office/media/image/common/star_rate.gif" alt="">	
+											</div>	
+											<div class="span1">
+												<img src="http://www.tunisland.com/front_office/media/image/common/star_rate.gif" alt="">	
+											</div>							
+											<div class="span1">
+												<img src="http://www.tunisland.com/front_office/media/image/common/star_rate.gif" alt="">	
+											</div>
+											<div class="span1">
+												<img src="http://www.tunisland.com/front_office/media/image/common/star_rate.gif" alt="">	
+											</div>							
+										</div>
+										<br/>
+									  
+									  <p><a class="btn btn-mini btn-primary" href="{{ path('front_article' , {'id': '1'}) }}">Voir la fiche produit</a></p>
+									  <p><a class="btn btn-mini btn-primary" href="#">Voir le produit sur le site partenaire</a></p>
+									</div>	
+								</div>	
+								<div class="span3">
+										<h5>Partenaire</h5>	
+										<img src="http://www.le-site-des-livres.com/wp-content/uploads/2011/10/fnac.jpg" width="40px" alt="">	
+										<h6>Articles compris entre</h6>	
+										<h4>5&euro; et 18&euro;</h4>	
+								</div>
+							</div>
+						</div>
+					</li>
+				{% endfor %}
+				</ul>
+			</div>
 			<div class="row-fluid">
-				<div class="span3">
-					<h2>Legende</h2>					
-				</div>
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-heart"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-flag"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-screenshot"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>	
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-eye-open"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>					
-			</div>		
-		</div>
-	</div>
-	</div>
-	<div id="empty" style="height: 18px;">
-	</div>
-	<div class="row">
-		<div id="divBandeauPrincipal" class="span12">	
-			<div class="row-fluid">
-				<div class="span12">
-					<h5>Information Partenaire</h5>				
-				</div>
-				<div class="row-fluid">
-					<div class="span4">
-						<h2>Darty</h2>
-						<h5>Partenaire De DessinemoiUN DOKA depuis le 18/02/12</h5>
-					</div>
-					<div class="span4">
-						<h5>C de la balle</h5>
-						
-						<ul class="thumbnails">
-							<li class="span2">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
-								</div>
-							</li>				  
-						</ul>				
-					</div>
-					<div class="span4">
-						<h5>Darty possede 356 Articles commeALAN</h5>						
-						<ul class="thumbnails">
-							<li class="span1">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
-								</div>
-							</li>
-							<li class="span1">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
-								</div>
-							</li>
-							<li class="span1">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
-								</div>
-							</li>
-						</ul>				
+				<div class="span8">
+					<div id="scrollToTop">
+						<a href="#">
+						<h5><i class="icon-arrow-up"></i> Remonter</h5>
+						</a>
 					</div>					
-				</div>					
-			</div>		
-		</div>
-	</div>
-	
-	
-	<div class="row">
-		<div class="span10 offset1">
-		  <h2>Resultats de recherche</h2>
-		  <p>Voici la super selection.</p>
-			  <ul id="carouselCateg" class="thumbnails">
-			  {% for i in 1..20 %}
-				<li class="span8">
-					<div class="thumbnail">
-						<img src="http://placehold.it/160x120" alt="">
-						<div class="caption">
-						  <h5>Thumbnail label</h5>
-						  <p>Le produit pour les roux, chiant et pas musclé</p>
-						  <p><a class="btn btn-primary" href="#">Voir les produits</a></p>
-						</div>
-					</div>
-				</li>
-			 {% endfor %}
-			 </ul>
-		</div>
-	</div>
+				</div> 				
+				<div class="span4">
+					<div class="pagination">
+						<ul>
+							<li><a href="#">Prev</a></li>
+							<li class="active">
+								<a href="#">1</a>
+							</li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">Next</a></li>
+						</ul>
+					</div> 
+				</div> 
+			</div> 
+		</div> 
+	</div> 
 	
 	
 	

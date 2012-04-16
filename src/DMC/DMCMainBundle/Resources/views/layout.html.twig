@@ -21,6 +21,9 @@
 				    <ul class="nav">
 					    <a class="brand" href="#">
 							<img class="logoPrincipal" src="http://dessinemoiuncadeau.com/img/logo3.png" alt="Dessine moi un cadeau" />
+							<div id="divInfo" >
+								
+							</div>
 						</a>
 						<li class="active">
 							<a href="{{ path('homepage') }}">Accueil</a>
@@ -62,16 +65,27 @@
 		
 		
 		{% endblock %}
-	
-	<div id="footer">
+	<div id="footer" class="section">
 		{% block footer %}
-		footer
+		<div class="row">
+			<div class="fondDiv">
+				<div class="row-fluid">				
+					<div class="span12">
+
+Conditions générales de vente et d'utilisation - Contact - Vendre son appartement - Les dernières annonces - Blog Mamimmo - Nos partenaires
+Mamimmo le site d'annonces immobilières spécialisé et gratuit pour l'achat et la vente de biens immobiliers neufs, anciens et en construction
+Appartement | Maison | Château | Mas | Mobile-home | Loft | Duplex | Triplex | Paris | Lyon | France métropolitaine					
+					</div>
+				</div>
+			</div>
+		</div>
 		{% endblock %}
 	</div>
 	</div>
         {% block javascripts %}
 			<script src="{{ asset('bundles/dmcmain/js/jquery-1.7.1.js') }}"></script>
 			<script src="{{ asset('bundles/dmcmain/js/bootstrap.js') }}"></script>
+			<script src="{{ asset('bundles/dmcmain/js/general.js') }}"></script>
 		{% endblock %}
 		<script type="text/javascript">
 			jQuery(document).ready(function() {

@@ -7,223 +7,533 @@
 {% block title %}
     {{ parent() }} - Article
 {% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/dmcmain/js/DMC_gestionSlider.js') }}"></script>
+	
+	/*
+	<script>
+	function hideOrShow(id){
+			if($("#"+id).is(":visible")){
+				$("#"+id).hide("blind", { direction: "vertical" }, 500);
+			}else{
+				$("#"+id).show("blind", { direction: "vertical" }, 500);
+			}
+		}				
+	</script>
+	*/
 
+{% endblock %}
+
+{% block jqueryDocumentReady %}
+	$('.carousel').carousel({
+		pause:"hover"
+	});
+
+	//======================================>Afficher ou pas la loupe sur l'image
+	$( '.blocImage' ).hover(
+	function() {
+		$('.loupe').show();		
+	},
+	function() {
+		$('.loupe').hide();
+	});	
+	//======================================>Afficher ou pas la loupe sur l'image
+	
+	
+	
+{% endblock %}
 	
 {% block body %}
 <div class="section">
-	<div class="row">
-		<div id="divBandeauPrincipal" class="span12">
+	
+	<div class="row">  
+		<div class="fondDiv">
 			<div class="row-fluid">
-				<div class="span3">
-					<div class="bordureGrise fondBlanc">
+				<div class="span2">
+					<div class="fondDiv">					
+						<h4><i class="icon-arrow-left"></i> <a href="{{ path('front_categorie' , {'id': '1'}) }}">Retour</a></h4>	
+					</div>						
+				</div>
+				<div class="span10">
+					<div class="fondDiv">
 						<div class="row-fluid">
-							<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
+							<h5>
+								<a href="#">Dessine Moi Un Cadeau</a>
+								>
+								<a href="#">Categorie</a>
+								>
+								<a href="#">Gros menager</a>
+								>
+								<a href="#">Artcile</a>
+								>
+								<a href="#">Article Frigo</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="row">
+		<div class="fondDiv">
+			<div class="row-fluid">
+				<div class="span3">	
+					<div class="row-fluid">
+						<div class="fondDiv">
 							<h3>Gros Menager</h3>				  
 							<h2>Refrigirateur</h2>
 						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="fondDiv">
+							<h1>35 Euros</h1>				  
+							<p>Dont 6,00 Euros d'eco-part</p>
+						</div>
+					</div>					
+					
+					<div class="row-fluid">
+						<div class="fondDiv">
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-info-sign"></i>
+								</div>
+								<div class="span8">
+									<h5>ID Code : 254f5gf51</h5>		
+								</div>							
+							</div>
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-heart"></i>
+								</div>
+								<div class="span8">
+									<h5>Ajouter aux favoris</h5>	
+								</div>							
+							</div>
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-trash"></i>
+								</div>
+								<div class="span8">
+									<h5>Ce cadeau vous deplait</h5>	
+								</div>							
+							</div>						
+							<div class="row-fluid">
+								<div class="span2">
+									<i class="icon-tags"></i>
+								</div>
+								<div class="span8">
+									<h5>Signaler un abus</h5>	
+								</div>							
+							</div>
+						</div>
+					</div>
+					
+					<div class="row-fluid">
+						<div class="fondDiv">
+							<div class="row-fluid">
+								<div class="span4">
+									<h4>Darty</h4>
+								</div>
+								<div class="span4">
+									<div class="fondDiv">
+									<a href="#">							
+										<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" width="40" alt="">
+									</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>						
+				</div>
+
+				<div class="modal hide fade" id="grosseImage">
+					<div class="modal-header">
+						<a class="close" data-dismiss="modal">&times;</a>
+						<h3>Modal header</h3>
+					</div>
+					<div class="modal-body">
+						<p>One fine body...</p>
 						<div class="row-fluid">
 							<div class="span8">
-								<ul class="thumbnails">
-									<li class="span2">
-										<div class="thumbnail">
-											<img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">
-										</div>
-									</li>
-								</ul>
+								<div class="fondDiv">
+									<img src="http://www.everydayminimalist.com/wp-content/uploads/2010/08/fridge.jpg" width="282px" alt="">
+								</div>
 							</div>
 							<div class="span4">
-								<ul class="thumbnails">
-									<li class="span1">
-										<div class="thumbnail">
-											<img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">
-										</div>
-									</li>
-									<li class="span1">
-										<div class="thumbnail">
-											<img src="http://storage3d.com/storage/2010.05/bb547056b953b798973664629f38fdb4.jpg" alt="">
-										</div>
-									</li>				  
-								</ul>
-							</div>
-						</div>
-						<div class="row-fluid">
-							<ul class="thumbnails">
-							  <li class="span1">
-								<div class="thumbnail">
-								  <img src="http://www.max-models.eu/wp-content/uploads/2012/02/Whirpool-fridge-3d-model.jpg" alt="">
+								<div class="fondDiv">
+									<h1>35 Euros</h1>				  
+									<p>Dont 6,00 Euros d'eco-part</p>
 								</div>
-							  </li>
-							  <li class="margeGauchePourLes3Thumbails span1">
-								<div class="thumbnail">
-								  <img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">							  
-								</div>
-							  </li>
-							  <li class="margeGauchePourLes3Thumbails span1">
-								<div class="thumbnail">
-								  <img src="http://icons.iconarchive.com/icons/heylove/vintage/128/vintage-fridge-green-icon.png" alt="">							  
-								</div>
-							  </li>
-							</ul>
-						</div>
-						
-						<div class="row-fluid">
-							<div class="span2">
-								<i class="icon-info-sign"></i>
-							</div>
-							<div class="span8">
-								<h5>ID Code : 254f5gf51</h5>		
 							</div>							
 						</div>
-						<div class="row-fluid">
-							<div class="span2">
-								<i class="icon-heart"></i>
-							</div>
-							<div class="span8">
-								<h5>Ajouter aux favoris</h5>	
-							</div>							
-						</div>
-						<div class="row-fluid">
-							<div class="span2">
-								<i class="icon-trash"></i>
-							</div>
-							<div class="span8">
-								<h5>Ce cadeau vous deplait</h5>	
-							</div>							
-						</div>						
-						<div class="row-fluid">
-							<div class="span2">
-								<i class="icon-tags"></i>
-							</div>
-							<div class="span8">
-								<h5>Signaler un abus</h5>	
-							</div>							
-						</div>							
-						
+					</div>
+					<div class="modal-footer">
+						<a href="#" data-dismiss="modal" class="btn">Close</a>
+						<a href="#" class="btn btn-primary">cet article chez notre partenaire</a>
 					</div>
 				</div>
+											
+											
 				<div class="span9">
-					<div class="bordureGrise fondBlanc">
+					<div class="fondDiv">
 						<div class="row-fluid">
-							<div class="span6">
-								<h3>Gros Menager</h3>				  
-								<h2>RefrÃ©girateur</h2>
-								<img src="http://www.everydayminimalist.com/wp-content/uploads/2010/08/fridge.jpg" alt="">
+							<div class="span6 blocImage">
+								<div class="fondDiv">
+									<div class="row-fluid">
+										<div style="position:relative;">
+											<img src="http://www.everydayminimalist.com/wp-content/uploads/2010/08/fridge.jpg" width="282px" alt="">
+											<a data-toggle="modal" href="#grosseImage">
+												<div class="fondDiv loupe" style="display: none;position:absolute;right:50px;bottom:30px;">
+													<i class="icon-search"></i>											
+												</div>
+											</a>	
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="span6">
-								<p class="bordureGrise fondBlanc">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sapien ligula, sodales vel pulvinar quis, mattis non eros. Ut condimentum laoreet nunc. Morbi blandit erat nec purus tincidunt ac luctus quam dignissim. Integer sed lacus lorem, id hendrerit quam. Nullam sed lorem sapien, vi magna posuere hendrerit. Duis posuere neque tellus. Proin facilisis interdum dignissim.<br/>
-
-Integer commodo imperdiet aliquam. Donec dapibus, tortor quis suscipit dignistum lorem ultrices. Nullam placerat condimentum dolor, id sollicitudin sem consequat commodo.<br/>
-
-								</p>
+								<div class="fondDiv">
+									<div class="row-fluid">
+										<h3>Description</h3>
+									</div>
+										<p>
+										Ce refrigerateur toute trouvera toute sa place dans une cuisine de petite taille ou un espace reduit
+										Congelateur 4 etoiles (-18 C) : permet de congeler des aliments frais et de conserver des surgeles jusqu'a 12 mois.
+										Grace a la classe A, la consommation energetique est reduite avec un benefice immediat pour l'environnement.
+										De classe climatique temperee, ce refrigerateur fonctionne meme a temperature allant de 16 a 32 C.
+										</p>
+									<div class="fondDiv">
+										<img src="http://www.darty.com/static/vvgx/img/inclus.jpg" alt="">
+										<div class="fondDiv">
+											<p>
+												<i class="icon-ok"></i> Edition limite de fi fi brin d acier
+											</p>
+											<p>
+												<i class="icon-ok"></i> les 1001 blagues de toto
+											</p>
+											<p>
+												<i class="icon-ok"></i> Les bank8 cehz confo
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<div id="empty" style="height: 2px;">
+	</div>
 
-		
-	</div>
-	<div id="empty" style="height: 18px;">
-	</div>
+
 	<div class="row">
-		<div id="divBandeauPrincipal" class="span12">	
-			<div class="row-fluid">
-				<div class="span3">
-					<h2>Legende</h2>					
-				</div>
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-heart"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-flag"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-screenshot"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>	
-				<div class="span2">
-					<div class="row-fluid">
-						<div class="span2">
-							<i class="icon-eye-open"></i>
-						</div>
-						<div class="span6">
-							<h5>Legende</h5>
-						</div>							
-					</div>
-				</div>					
-			</div>		
-		</div>
-	</div>
-	</div>
-	<div id="empty" style="height: 18px;">
-	</div>
-	<div class="row">
-		<div id="divBandeauPrincipal" class="span12">	
-			<div class="row-fluid">
-				<div class="span12">
-					<h5>Information Partenaire</h5>				
-				</div>
+		<div class="fondDiv">
+			<div class="fondDiv">
 				<div class="row-fluid">
-					<div class="span4">
-						<h2>Darty</h2>
-						<h5>Partenaire De DessinemoiUN DOKA depuis le 18/02/12</h5>
-					</div>
-					<div class="span4">
-						<h5>C de la balle</h5>
+					<div class="span2">
+						<h2>Conseils</h2>
+						<h5>Ceux qui ont aimes cet artilce, ont egalement appricies ces autres articles</h5>				
+					</div>	   
 						
-						<ul class="thumbnails">
-							<li class="span2">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
+					<div class="span10">
+						<div class="fondDiv">
+							<h5>C de la balle</h5>							
+							<div id="myCarousel" class="carousel">
+							  <!-- Carousel items -->
+							  <div class="carousel-inner">
+								<div class="item active row-fluid">
+									<div class="span3"><img src="http://ce-soir-ou-jamais.france3.fr/IMG/jpg/jeux160.jpg" alt=""></div>
+									<div class="span3"><img src="http://www.nrjbanquepop.fr/uploads/news/1315207053-ro-vita-gc-junglesmash-zoom-thumb.JPG" alt=""></div>
+									<div class="span3"><img src="http://img.scoop.it/GYSnOg6_DQxCpIojX5oJNzl72eJkfbmt4t8yenImKBVaiQDB_Rd1H6kmuBWtceBJ" alt=""></div>
+									<div class="span3"><img src="http://s.sd1.fr/videos/1724.jpg" alt=""></div>				
 								</div>
-							</li>				  
-						</ul>				
-					</div>
-					<div class="span4">
-						<h5>Darty possede 356 Articles comme</h5>						
-						<ul class="thumbnails">
-							<li class="span1">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
+								<div class="item row-fluid">
+									<div class="span3"><img src="http://static2.dmcdn.net/static/video/488/419/33914884:jpeg_preview_medium.jpg?20111119192217" alt=""></div>
+									<div class="span3"><img src="http://www.miglo.net/thumbs/jeux-video-photo-t1.jpg" alt=""></div>
+									<div class="span3"><img src="http://www.nrjbanquepop.fr/uploads/news/1316091715-driver-thumb2-thumb.jpg" alt=""></div>
+									<div class="span3"><img src="http://static2.dmcdn.net/static/video/236/372/43273632:jpeg_preview_medium.jpg?20120329170443" alt=""></div>				
+								</div>							
+							  </div>
+							  <!-- Carousel nav -->
+							  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+							  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>	
+		</div>	
+	</div>
+	
+	<div id="empty" style="height: 18px;">
+	</div>
+	
+			
+	<div class="row">
+		<div class="fondDiv">
+			<div class="fondDiv">
+				<div class="row-fluid">
+					<div class="span2">
+						<h2>Partenaire</h2>
+						<h3>Darty</h3>	
+						<h5>Partenaire De DessinemoiUN DOKA depuis le 18/02/12</h5>			
+					</div>			
+					<div class="span10">
+						<div class="fondDiv">					
+							<div class="row-fluid">	
+								<div class="span4">
+									<div class="fondDiv">
+										<h5>C de la balle</h5>
+										
+										<ul class="thumbnails">
+											<li class="span2">
+												<div class="thumbnail">
+													<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
+												</div>
+											</li>				  
+										</ul>	
+									</div>	
 								</div>
-							</li>
-							<li class="span1">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
+								<div class="span8">
+									<div class="fondDiv">
+										<h5>Darty possede 356 Articles comme</h5>
+										<div id="myCarousel2" class="carousel">
+											<div class="carousel-inner">
+												<div class="item active row-fluid">
+													<ul class="thumbnails">
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://files.softicons.com/download/computer-icons/devices-icon-pack-vol1-by-arnaud-nelissen/png/256x256/ordinateur%20portable%20allume%20V2.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://itht.fr/ordinateur-de-bureau.jpg" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>														
+													</ul>		
+												</div>
+												<div class="item row-fluid">
+													<ul class="thumbnails">
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://files.softicons.com/download/computer-icons/devices-icon-pack-vol1-by-arnaud-nelissen/png/256x256/ordinateur%20portable%20allume%20V2.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://itht.fr/ordinateur-de-bureau.jpg" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>
+														<li class="span1">
+															<div class="thumbnail">
+																<img src="http://www.clipart-fr.com/data/icones/Hi-Tech/icones_technologie_0148.png" alt="">
+															</div>
+														</li>														
+													</ul>
+												</div>							
+											</div>
+											<a class="carousel-control left" href="#myCarousel2" data-slide="prev">&lsaquo;</a>
+											<a class="carousel-control right" href="#myCarousel2" data-slide="next">&rsaquo;</a>
+										</div>				
+									</div>	
 								</div>
-							</li>
-							<li class="span1">
-								<div class="thumbnail">
-									<img src="http://www.darty.com/res3/views_mobile/common/img/big_logo.jpg" alt="">
-								</div>
-							</li>
-						</ul>				
-					</div>					
-				</div>					
-			</div>		
+							</div>	
+						</div>
+					</div>	
+				</div>
+			</div>
 		</div>
+	</div>
+	
+	<div id="empty" style="height: 18px;">
+	</div>
+	
+	<div class="row">  
+		<div class="fondDiv">
+			<div class="fondDiv">
+				<div class="row-fluid">
+					<div class="span2">
+						<h3>Bon Plan</h3>
+						<h2> Partenaire</h2>	
+					</div>			
+					<div class="span10">
+						<div class="row-fluid">
+							<div class="row-fluid">	
+								<div class="span8">
+									<div class="fondDiv">
+										<div class="row-fluid">	
+											<div class="span4">
+												<h3>Code Promo</h3>
+												<h5>PromoNOEL</h5>
+												<a class="btn btn-mini" href="">Copier Ce code</a>
+												<a class="btn btn-mini" href="">Acceder au site</a>
+												<h6>Code Promo du 06/12/12</h6>							
+											</div>	
+											<div class="span4">
+												<h3>Code Promo</h3>
+												<h5>PromoNOEL</h5>
+												<h6>Code Promo du 06/12/12</h6>		
+											</div>	
+											<div class="span4">
+												<h3>Code Promo</h3>
+												<h5>PromoNOEL</h5>
+												<h6>Code Promo du 06/12/12</h6>		
+											</div>							
+										</div>
+									</div>
+								</div>
+								<div class="span4">
+									<div class="fondDiv">
+										<h3>Operation Speciale</h3>
+										<h5>-28% sur les robes</h5>
+										<h6>du 15 au 25 avril 2012</h6>	
+										<ul class="thumbnails">
+											<li class="span1">
+												<div class="thumbnail">
+													<img src="http://cloud5.lbox.me/images/m/201104/FARAH---Robe-de-Cocktail-Organza_snjx1302159245687.jpg" alt="">
+												</div>
+											</li>
+										</ul>						
+									</div>	
+								</div>	
+							</div>	
+						</div>	
+					</div>	
+				</div>
+			</div>	
+		</div>	
+	</div>
+	
+	<div id="empty" style="height: 18px;">
+	</div>
+	
+	
+	
+	<div class="row"> 
+		<div class="fondDiv">
+			<div class="fondDiv">
+				<div class="row-fluid">
+					<div class="span2">
+						<h2>Plan</h2>
+						<h5>Vous pouvez directement acheter ce cadeau près de chez vous.</h5>	
+					</div>			
+					<div class="span10">
+						<div class="fondDiv">
+							<h5>Darty</h5>
+							<iframe width="100%" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.co.uk/maps?f=q&amp;source=s_q&amp;hl=fr&amp;q=darty&amp;aq=&amp;sll=48.7847,2.452011&amp;sspn=0.272811,0.727158&amp;ie=UTF8&amp;t=m&amp;st=109146043351405611748&amp;rq=1&amp;ev=zi&amp;split=1&amp;radius=19.87&amp;hq=darty&amp;hnear=&amp;ll=53.800651,-4.064941&amp;spn=0.27241,0.727158&amp;output=embed"></iframe>
+						</div>	
+					</div>	
+				</div>	
+			</div>
+		</div>	
+	</div>
+	
+	<div id="empty" style="height: 18px;">
+	</div>
+	
+	<div class="row">  
+		<div class="fondDiv">
+			<div class="fondDiv">
+				<div class="row-fluid">
+					<div class="span2">
+						<h2>Statistique sur cet Article</h2>
+						<h5>Cet article a ete visionne 231 fois</h5>
+					</div>			
+					<div class="span10">
+						<div class="fondDiv">
+							<h5>Porfil Psychologique lie a cet article</h5>
+							<img src="http://www.jpowered.com/php-scripts/vertical-bar-graph/images/php-bar-graph-3d-multi.gif" alt="">
+						</div>	
+					</div>	
+				</div>	
+			</div>	
+		</div>	
+	</div>
+
+	<div id="empty" style="height: 18px;">
+	</div>
+
+
+
+	
+	<div class="row">  
+		<div class="fondDiv">
+			<div class="fondDiv">
+				<div class="row-fluid">
+					<div class="span2">
+						<h2>Commentaire</h2>
+					</div>
+					<div class="span10">	
+						<div class="fondDiv">
+							<form class="well form-inline">
+							  <input type="text" class="input-small" placeholder="Email">
+							  <input type="password" class="input-small" placeholder="Password">
+							  <label class="checkbox">
+								<input type="checkbox"> Remember me
+							  </label>
+							  <button type="submit" class="btn">Sign in</button>
+							</form>
+						
+														
+							<form class="well">
+							  <label>Label name</label>
+							  <input type="text" class="span3" placeholder="Type something...">
+							  <span class="help-inline">Associated help text!</span>
+							  <label class="checkbox">
+								<input type="checkbox"> Check me out
+							  </label>
+							  <button type="submit" class="btn">Submit</button>
+							</form>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>	
+	
+	<div id="empty" style="height: 18px;">
 	</div>
 	
 </div>
