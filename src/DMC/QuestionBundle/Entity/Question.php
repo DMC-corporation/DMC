@@ -13,6 +13,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Question
 {
     /**
+     * @ORM\OneToMany(targetEntity="Reponse", mappedBy="question_id", cascade={"remove", "persist"})
+     */
+    protected $reponses;
+
+    /**
      * @var integer $id
      *
      * @ORM\Column(name="id", type="integer")
@@ -34,21 +39,6 @@ class Question
      * @ORM\Column(name="libelle_feminin", type="string", length=255)
      */
     private $libelle_feminin;
-
-    /**
-     * @var datetime $creation_date
-     *
-     * @ORM\Column(name="creation_date", type="datetime")
-     */
-    private $creation_date;
-
-    /**
-     * @var datetime $update_date
-     *
-     * @ORM\Column(name="update_date", type="datetime")
-     */
-    private $update_date;
-
 
     /**
      * Get id
@@ -138,5 +128,34 @@ class Question
     public function getUpdateDate()
     {
         return $this->update_date;
+    }
+    public function __construct()
+    {
+        $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add reponses
+     *
+     * @param DMC\QuestionBundle\Entity\Reponse $reponses
+     */
+    public function addReponse(\DMC\QuestionBundle\Entity\Reponse $reponses)
+    {
+        $this->reponses[] = $reponses;
+    }
+
+    /**
+     * Get reponses
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getReponses()
+    {
+        return $this->reponses;
+    }
+
+    public function __toString()
+    {
+        return $this->getLibelleMasculin();
     }
 }

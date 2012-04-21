@@ -88,6 +88,7 @@ class Article
 	
 	public function __construct() {
 		$this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setCreationDate(new \DateTime("now"));
 	}
 
 
@@ -279,5 +280,10 @@ class Article
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
     }
 }

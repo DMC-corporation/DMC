@@ -1,7 +1,7 @@
 body{
-	margin-top:140px;
+	margin-top:82px;
 	background-color:white;
-	background-image:url('http://dessinemoiuncadeau.com/images/fond.jpg');
+	background-image:url('http://dessinemoiuncadeau.com/images/fond/retro.png');
 	background-repeat:no-repeat;
 	background-attachment:fixed;
 	background-position:0px 40px;
@@ -9,10 +9,11 @@ body{
 
 #divInfo{
 	position:absolute;
-	left:336px;
-	top:46px;
-	width:700px;
-	z-index:2000;
+	left:10px;
+	bottom:10px;
+	width:300px;
+	z-index=100;
+
 }
 
 .barreMenuSup{
@@ -36,8 +37,9 @@ body{
 	background-image:url('http://ideiasdeorigemportuguesa.org/images/background_grey2.jpg');
 	background-image:url('http://www.schattauer.de/sonderdrucke/NHK/Krewel_Meuselbach/files/background_grey_schattauer.jpg');
 	background-image:url('http://dpm-properties.com/images/grey_back.png');
-	background-image:url('http://papillondereve.p.a.pic.centerblog.net/o/9b7c42ee.jpg');*/
-	background-image:url('http://www.chromaticfactory-design.fr/wp-content/uploads/fond_site2.jpg');
+	background-image:url('http://papillondereve.p.a.pic.centerblog.net/o/9b7c42ee.jpg');
+	background-image:url('http://www.chromaticfactory-design.fr/wp-content/uploads/fond_site2.jpg');*/
+	background-image:url('http://dessinemoiuncadeau.com/images/fond/birds.png');
 }
 
 

@@ -3,6 +3,7 @@
 namespace DMC\QuestionBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DMC\ProfilBundle\Entity\LienProfilReponse;
 
 /**
  * DMC\QuestionBundle\Entity\Reponse
@@ -12,6 +13,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Reponse
 {
+    /**
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="reponses", cascade={"remove"})
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
+     */
+    protected $question_id;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="DMC\ProfilBundle\Entity\LienProfilReponse", mappedBy="reponse_id", cascade={"remove", "persist"})
+     */
+    private $liensProfilReponse;
+
     /**
      * @var integer $id
      *
@@ -165,5 +178,49 @@ class Reponse
     public function getUpdateDate()
     {
         return $this->update_date;
+    }
+    public function __construct()
+    {
+        $this->liensProfilReponse = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Set question_id
+     *
+     * @param DMC\QuestionBundle\Entity\Question $questionId
+     */
+    public function setQuestionId(\DMC\QuestionBundle\Entity\Question $questionId)
+    {
+        $this->question_id = $questionId;
+    }
+
+    /**
+     * Get question_id
+     *
+     * @return DMC\QuestionBundle\Entity\Question 
+     */
+    public function getQuestionId()
+    {
+        return $this->question_id;
+    }
+
+    /**
+     * Add liensProfilReponse
+     *
+     * @param DMC\ProfilBundle\Entity\LienProfilReponse $liensProfilReponse
+     */
+    public function addLienProfilReponse(\DMC\ProfilBundle\Entity\LienProfilReponse $liensProfilReponse)
+    {
+        $this->liensProfilReponse[] = $liensProfilReponse;
+    }
+
+    /**
+     * Get liensProfilReponse
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getLiensProfilReponse()
+    {
+        return $this->liensProfilReponse;
     }
 }

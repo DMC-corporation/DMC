@@ -29,21 +29,21 @@ class DefaultController extends Controller
     {
         return array();
     }
-	
-	/**
-     * @Route("/backoffice", name="backoffice")
-     * @Template()
-     */
-    public function backOfficeAction()
-    {
-        return array();
-    }
-	
+
 	/**
      * @Route("/quisommesnous", name="quisommesnous")
      * @Template()
      */
     public function quiSommesNousAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Route("/leconcept", name="leconcept")
+     * @Template()
+     */
+    public function leconceptAction()
     {
         return array();
     }

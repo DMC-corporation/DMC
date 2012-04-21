@@ -3,6 +3,7 @@
 namespace DMC\CategorieBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DMC\ProfilBundle\Entity\LienProfilCategorie;
 
 /**
  * DMC\CategorieBundle\Entity\Categorie
@@ -17,7 +18,11 @@ class Categorie
 	 * @ORM\ManyToMany(targetEntity="Article", mappedBy="categories")
 	 */
 	private $articles;
-	
+
+    /**
+     * @ORM\OneToMany(targetEntity="DMC\ProfilBundle\Entity\LienProfilCategorie", mappedBy="categorie_id", cascade={"remove", "persist"})
+     */
+    private $liensProfilCategorie;
 	
     /**
      * @var integer $id
@@ -45,7 +50,7 @@ class Categorie
     /**
      * @var text $mots_cles
      *
-     * @ORM\Column(name="mots_cles", type="text")
+     * @ORM\Column(name="mots_cles", type="array")
      */
     private $mots_cles;
 	
@@ -122,5 +127,45 @@ class Categorie
     public function getMotsCles()
     {
         return $this->mots_cles;
+    }
+
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    public function __toString()
+    {
+        return $this->getNom();
+    }
+
+    /**
+     * Add articles
+     *
+     * @param DMC\CategorieBundle\Entity\Article $articles
+     */
+    public function addArticle(\DMC\CategorieBundle\Entity\Article $articles)
+    {
+        $this->articles[] = $articles;
+    }
+
+    /**
+     * Add liensProfilCategorie
+     *
+     * @param DMC\ProfilBundle\Entity\LienProfilCategorie $liensProfilCategorie
+     */
+    public function addLienProfilCategorie(\DMC\ProfilBundle\Entity\LienProfilCategorie $liensProfilCategorie)
+    {
+        $this->liensProfilCategorie[] = $liensProfilCategorie;
+    }
+
+    /**
+     * Get liensProfilCategorie
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getLiensProfilCategorie()
+    {
+        return $this->liensProfilCategorie;
     }
 }

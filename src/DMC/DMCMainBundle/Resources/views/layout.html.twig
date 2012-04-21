@@ -13,74 +13,88 @@
     </head>
     <body>
 	<div class="container">
-	<div id="header">
-	{% block header %}
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner barreMenuSup">
-				<div class="container">
-				    <ul class="nav">
-					    <a class="brand" href="#">
-							<img class="logoPrincipal" src="http://dessinemoiuncadeau.com/img/logo3.png" alt="Dessine moi un cadeau" />
-							<div id="divInfo" >
-								
-							</div>
-						</a>
-						<li class="active">
-							<a href="{{ path('homepage') }}">Accueil</a>
-						</li>
-					</ul>
-					<ul class="nav pull-right">
-						<li><a href="{{ path('contact') }}">Contact</a></li>
-						<li><a href="{{ path('quisommesnous') }}">Qui sommes-nous?</a></li>
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-								Plus d'infos
-								<b class="caret"></b>
+		<div id="header">
+		{% block header %}
+			<div class="navbar navbar-fixed-top">
+				<div class="navbar-inner barreMenuSup">
+					<div class="container">
+						<ul class="nav">
+							<a class="brand" href="{{ path('homepage')}}">
+								<img class="logoPrincipal" src="http://dessinemoiuncadeau.com/images/logo.png" alt="Dessine moi un cadeau" />
 							</a>
-							<ul class="dropdown-menu">
-								<li>
-									<a href="#">Action</a>
-								</li>
-								<li>
-									<a href="#">Another action</a>
-								</li>
-								<li>
-									<a href="#">Something else here</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="#">Separated link</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	{% endblock %}
-	</div>
-	
-        {% block body %}
-		
-		
-		
-		{% endblock %}
-	<div id="footer" class="section">
-		{% block footer %}
-		<div class="row">
-			<div class="fondDiv">
-				<div class="row-fluid">				
-					<div class="span12">
-
-Conditions générales de vente et d'utilisation - Contact - Vendre son appartement - Les dernières annonces - Blog Mamimmo - Nos partenaires
-Mamimmo le site d'annonces immobilières spécialisé et gratuit pour l'achat et la vente de biens immobiliers neufs, anciens et en construction
-Appartement | Maison | Château | Mas | Mobile-home | Loft | Duplex | Triplex | Paris | Lyon | France métropolitaine					
+							<li class="active">
+								<a href="{{ path('homepage') }}">Accueil</a>
+							</li>
+						</ul>
+						<ul class="nav pull-right">
+							<li><a href="{{ path('leconcept') }}">Le concept</a></li>
+							<li><a href="{{ path('contact') }}">Contact</a></li>
+							<li><a href="{{ path('quisommesnous') }}">Qui sommes-nous?</a></li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+									Plus d'infos
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="#">Action</a>
+									</li>
+									<li>
+										<a href="#">Another action</a>
+									</li>
+									<li>
+										<a href="#">Something else here</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="#">Separated link</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
-		</div>
 		{% endblock %}
-	</div>
+		</div>
+		
+			{% block body %}
+			
+			
+			
+			{% endblock %}
+		<div id="footer" class="section">
+			{% block footer %}
+			<div class="row">
+				<div class="fondDiv">
+					<div class="row-fluid">				
+						<div class="span12">
+
+	Conditions générales de vente et d'utilisation - Contact - Vendre son appartement - Les dernières annonces - Blog Mamimmo - Nos partenaires
+	Mamimmo le site d'annonces immobilières spécialisé et gratuit pour l'achat et la vente de biens immobiliers neufs, anciens et en construction
+	Appartement | Maison | Château | Mas | Mobile-home | Loft | Duplex | Triplex | Paris | Lyon | France métropolitaine					
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+		
+		
+		
+		<div id="footerAlert" class="section">
+			{% block footerAlert %}
+			<div class="navbar navbar-fixed-bottom">
+				<div class="row">
+					<div id="divInfo" >				
+					</div>
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+		
+		
+		
 	</div>
         {% block javascripts %}
 			<script src="{{ asset('bundles/dmcmain/js/jquery-1.7.1.js') }}"></script>

@@ -6,6 +6,7 @@
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 	<script src="{{ asset('bundles/dmcmain/js/DMC_gestionSlider.js') }}"></script>
 	<script>
 	function hideOrShow(id){
@@ -16,26 +17,35 @@
 			}
 		}				
 	</script>
+	
+<script type="text/javascript">
+function fond1()
+{
+document.body.style.backgroundImage="url('http://dessinemoiuncadeau.com/images/fond/fond.jpg')";
+}
+function fond2()
+{
+document.body.style.backgroundImage="url('http://dessinemoiuncadeau.com/images/fond/retro.png')";
+}
+function fond3()
+{
+document.body.style.backgroundImage="url('http://dessinemoiuncadeau.com/images/fond/birds.png')";
+}
+function fond4()
+{
+document.body.style.backgroundImage="url('http://dessinemoiuncadeau.com/images/fond/fleurReverse.png')";
+}
+function fond5()
+{
+document.body.style.backgroundImage="url('http://dessinemoiuncadeau.com/images/fond/box.png')";
+}									
+									
+</script>
+
+
 {% endblock %}
 {% block jqueryDocumentReady %}
 	{{ parent() }}	
-	// ------------------------------------------>FONCTION REMONTER
-	$(window).scroll(function() {
-		if($(window).scrollTop() == 0){
-		$('#scrollToTop').fadeOut("fast");
-		} else {
-		if($('#scrollToTop').length == 0){
-
-		}
-		$('#scrollToTop').fadeIn("fast");
-		}
-	});
-
-	$('#scrollToTop a').live('click', function(event){
-	event.preventDefault();
-	$('html,body').animate({scrollTop: 0}, 'slow');
-	});
-	// ------------------------------------------>FONCTION REMONTER
 
 	
 	
@@ -94,9 +104,13 @@
 		});
 	// ------------------------------------------>AFfiche Pencil Ou pas
 
+
+	
+
+	
+
 	
 	
-	hideOrShow('modificationManuelle');
 	defineFourchettePrix(10, 70);
 	defineAge(25);
 	defineProfil(1,90);
@@ -115,15 +129,47 @@
 	defineProfil(14,50);
 	defineProfil(15,10);
 	
+	
+	// ------------------------------------------>Desactive les jauges
 	$( 'div[id^="slider-profil"]' ).each(function() {
 		setNonEditableJaugeProfil($(this).attr("id").substr(13));
 	});
+	// ------------------------------------------>Desactive les jauges
+
 	
-	messageAccueil = '<p><strong> Dessine moi un cadeau</strong> le premier moteur de recherche psychologique, il faut répondre a des question �  la con pour avoir un cadeau de greg l\'ouvrier de batard. ça va etre un truc de fou trop bien faut mettre un bla bla qui va bien pour expliquer le concept ici.<br/><i class="icon-arrow-down"></i> <strong> Commencez �  répondre aux questions!</strong><p/>';
+	/*
+	$( '.section' ).click(
+		function() {
+			setNonEditableJaugeProfil(1);
+		});
+		*/
+		
+
 	
-	afficherMessageInfo(messageAccueil, 'alert-error' ,0);
+	messageAccueil = '<p><strong> Dessine moi un cadeau</strong> le premier moteur de recherche psychologique.<br><i class="icon-arrow-down"></i> <strong> Commencez �   répondre aux questions pour découvrir le cadeau idéal !</strong><p/>';
+	afficherMessageInfo(messageAccueil, 'alert-info' ,2);
 	
-			
+	
+	// ------------------------------------------>Point dinterrogation
+	$( '#questionFiltre' ).click(
+	function() {
+		messageAccueil = '<p><i class="icon-question-sign"></i><strong> Les Filtre Articles </strong> sont utilises pour selectioner les cadeaux que vous souhaitez</strong><p/>';
+		afficherMessageInfo(messageAccueil, 'alert-info' ,2);
+	});
+	$( '#questionProfil' ).click(
+	function() {
+		messageAccueil = '<p><i class="icon-question-sign"></i><strong> Les Profils Articles </strong> sont determinessuivant les questions. Vous pouvez les modifier manuellement.</strong><p/>';
+		afficherMessageInfo(messageAccueil, 'alert-info' ,2);
+	});
+	$( '#questionQuestions' ).click(
+	function() {
+		messageAccueil = '<p><i class="icon-question-sign"></i><strong> Les Questions </strong> sont trop de la balle.</strong><p/>';
+		afficherMessageInfo(messageAccueil, 'alert-info' ,2);
+	});		
+	
+	// ------------------------------------------>Point dinterrogation
+
+	
 {% endblock %}
 {% block title %}
     {{ parent() }} - Accueil
@@ -134,89 +180,146 @@
 
 {% block body %}
 	
-<div class="section">
-	<div class="row" >
-		<div class="fondDiv">
-			
+	
+
+
+
+
+<div class="section" id="section">
+	<div class="row">
+		<div class="fondDiv">			
 			<div class="row-fluid" >
-				<div class="span6">
-					<div class="fondDiv">
-						<h3>Question</h3>				  
+				<div class="span3">					
+					<div class="row-fluid" >
+						<div class="row-fluid" >
+							<div class="fondDiv">								
+								<h3>
+									<div class="row-fluid" >
+										<div class="span10">	
+											Filtre Articles
+										</div>
+										<div class="span2">	
+											<i id="questionFiltre" class="icon-question-sign icon-white"></i>
+										</div>
+									</div>									
+								</h3>
+								<div class="row-fluid" >
+									<div class="span7">	
+										<p>
+											<label>Prix : <span id="amountPrixMin">25</span>&euro; - <span id="amountPrixMax">30</span>&euro;</label>
+										</p>
+									</div>
+									<div class="span5">	
+										<div class="row-fluid" >
+											<div class="span11">
+												<div id="slider-prix"></div>
+											</div>											
+										</div>										
+									</div>
+								</div>								
+								<div class="row-fluid" >
+									<div class="span7">	
+										<p>
+											<label>Age <span id="amountAge">25</span> ans</label>
+											<div id="slider-age"></div>
+										</p>
+									</div>
+									<div class="span5">											
+										<p>
+											<label>Sexe</label>
+											<input type="radio" name="sex" value="male" /> H
+											<input type="radio" name="sex" value="female" /> F
+										</p>
+									</div>									
+								</div>
+							</div>
+						</div>
+						<div class="row-fluid" >
+							<div class="fondDiv" id="profilActuel">
+								<h3>
+									<div class="row-fluid" >
+										<div class="span10">	
+											Profil actuel
+										</div>
+										<div class="span2">	
+											<i id="questionProfil" class="icon-question-sign icon-white"></i>
+										</div>
+									</div>	
+								</h3>
+								<div class="row-fluid">
+									<div class="row-fluid">
+										<div class="span5">
+											<p>Roux <span id="amountProfil1">25</span>%</p>
+										</div>
+										<div class="span7">
+											<div class="row-fluid sliderProfil">
+												<div class="span11">
+													<div id="slider-profil1" ></div>
+												</div>
+												<div class="span1">
+													<i id="iconeModifProfil1" style="display: none" class="icon-pencil"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5">
+											<p>Chiant <span id="amountProfil2">25</span>%</p>
+										</div>
+										<div class="span7">
+											<div class="row-fluid sliderProfil">
+												<div class="span11">
+													<div id="slider-profil2" ></div>
+												</div>
+												<div class="span1">
+													<i id="iconeModifProfil2" style="display: none" class="icon-pencil"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5">
+											<p>Muscl&eacute; <span id="amountProfil3">25</span>%</p>
+										</div>
+										<div class="span7">
+											<div class="row-fluid sliderProfil">
+												<div class="span11">
+													<div id="slider-profil3" ></div>
+												</div>
+												<div class="span1">
+													<i id="iconeModifProfil3" style="display: none" class="icon-pencil"></i>
+												</div>
+											</div>
+										</div>
+									</div>										
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span9">
+					<div id="blocQuestion" class="fondDiv" style="min-height:250px">
+						<h3>
+							<div class="row-fluid" >
+								<div class="span10">	
+									Questions
+									<button type="button" onclick="fond1()">design</button>
+									<button type="button" onclick="fond2()">retro</button>
+									<button type="button" onclick="fond3()">bird</button>
+									<button type="button" onclick="fond4()">fleur</button>
+									<button type="button" onclick="fond5()">box</button>
+								</div>
+								<div class="span2">	
+									<i id="questionQuestions" class="icon-question-sign icon-white"></i>
+								</div>
+							</div>	
+						</h3>				  
 						<h2>{{oQuestion.getLibelleMasculin()}}</h2>
 						<br/>
 						<div class="btn-group center" style="text-align:center">
 							<button class="btn btn-primary btn-large" data-toggle="button" data-loading-text="loading stuff...">Oui</button>
 							<button class="btn btn-primary btn-large" data-loading-text="loading stuff...">Non, la réponse aussi peut etre longue</button>
 							<button class="btn btn-primary btn-large">Lol</button>
-						</div>
-					</div>
-				</div>
-				<div class="span6">
-					
-					<div class="row-fluid" >
-						<div class="span6">
-							<div class="fondDiv">
-								<h3>Filtre Articles</h3>
-								<br/>
-								<p>
-									<label>Prix : entre <span id="amountPrixMin">25</span>&euro; et <span id="amountPrixMax">30</span>&euro;</label>
-									<div id="slider-prix"></div>
-								</p>
-								<p>
-									<label>Age <span id="amountAge">25</span> ans</label>
-									<div id="slider-age"></div>
-								</p>	
-								<p>
-										<input type="radio" name="sex" value="male" /> H
-										<input type="radio" name="sex" value="female" /> F
-								</p>	
-							</div>
-						</div>
-						<div class="span6">
-							<div class="fondDiv">
-								<h3>Profil actuel :</h3> 
-								<div class="row-fluid">
-									<div class="row-fluid">
-										<div class="span12">
-											<p>Roux <span id="amountProfil1">25</span>%</p>
-										</div>
-									</div>
-									<div class="row-fluid sliderProfil">
-										<div class="span9">
-											<div id="slider-profil1" ></div>
-										</div>
-										<div class="span3">
-											<i id="iconeModifProfil1" style="display: none" class="icon-pencil"></i>
-										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="span12">
-											<p>Chiant <span id="amountProfil2">25</span>%</p>
-										</div>
-									</div>
-									<div class="row-fluid sliderProfil">
-										<div class="span9">
-											<div id="slider-profil2" ></div>
-										</div>
-										<div class="span3">
-											<i id="iconeModifProfil2" style="display: none" class="icon-pencil"></i>
-										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="span12">
-											<p>Muscl&eacute; <span id="amountProfil3">25</span>%</p>
-										</div>
-									</div>
-									<div class="row-fluid sliderProfil">
-										<div class="span9">
-											<div id="slider-profil3" ></div>
-										</div>
-										<div class="span3">
-											<i id="iconeModifProfil3" style="display: none" class="icon-pencil"></i>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -236,7 +339,7 @@
 				
 
 			</div>
-			<div id="modificationManuelle"  class="row-fluid">
+			<div id="modificationManuelle"  class="row-fluid" style="display: none">
 				<div class="fondDiv">
 					<div class="row-fluid">
 						<div class="span3">
@@ -317,7 +420,7 @@
 	
 	<div class="row">
 		<div class="span10 offset1">
-			<div class="fondDiv">
+			<div id="blocResultatsCategories" class="fondDiv">
 				<div class="row-fluid" >
 					<div class="span7">
 						<h2>Resultats de recherche</h2>
@@ -339,20 +442,25 @@
 					 
 					</div> 
 				</div> 
-				<div class="row-fluid">
-					<ul id="carouselCateg" class="thumbnails">
-					{% for i in 1..16 %}
-					<li class="span2">
-						<div class="thumbnail">
-							<img src="http://image.made-in-china.com/2f1j00IMKaSwZgSmor/Rattan-Table-Chair-Garden-Table-Chair-Outdoor-Table-Chair-Dining-Table-Chair-Wicker-Table-NC7019-.jpg" alt="">
-							<div class="caption">
-							  <h5>Thumbnail label</h5>
-							  <p>Le produit pour les roux, chiant et pas musclé</p>
-							  <p><a class="btn btn-primary" href="{{ path('front_categorie' , {'id': '1'}) }}">Voir les produits</a></p>
+				<div class="row-fluid" style="margin-left: auto;  margin-right: auto;">
+					<ul id="carouselCateg" class="thumbnails" >
+						{% for i in 1..16 %}
+						<li class="span2" style="position:relative;">
+							<div id="listeCateg{{i}}" class="thumbnail">
+								
+									<img src="http://image.made-in-china.com/2f1j00IMKaSwZgSmor/Rattan-Table-Chair-Garden-Table-Chair-Outdoor-Table-Chair-Dining-Table-Chair-Wicker-Table-NC7019-.jpg" alt="">
+									<div  style="position:absolute;top:10px;right:10px;">
+										<a href="#"><i id="removeCategorie{{i}}" class="icon-remove" style="display: none"></i></a>										
+									</div>
+								
+								<div class="caption">
+								  <h5>Thumbnail label</h5>
+								  <p>Le produit pour les roux.</p>
+								  <p><a class="btn btn-primary" href="{{ path('front_categorie' , {'id': '1'}) }}">Voir les produits</a></p>
+								</div>
 							</div>
-						</div>
-					</li>
-					{% endfor %}
+						</li>
+						{% endfor %}
 					</ul>
 				</div>
 				<div class="row-fluid" >

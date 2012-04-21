@@ -4,6 +4,224 @@
     {{ parent() }} - Accueil
 {% endblock %}
 
+
+{% block jqueryDocumentReady %}
+	{{ parent() }}	
+	// ------------------------------------------>FONCTION REMONTER
+	$(window).scroll(function() {
+		if($(window).scrollTop() == 0){
+		$('#scrollToTop').fadeOut("fast");
+		} else {
+		if($('#scrollToTop').length == 0){
+
+		}
+		$('#scrollToTop').fadeIn("fast");
+		}
+	});
+
+	$('#scrollToTop a').live('click', function(event){
+	event.preventDefault();
+	$('html,body').animate({scrollTop: 0}, 'slow');
+	});
+	// ------------------------------------------>FONCTION REMONTER
+{% endblock %}
+	
+	
 {% block body %}
- Nous sommes L&eacute;gion et nous sommes du fer
+<div class="section">
+	
+	<div class="row">  
+		<div class="fondDiv">
+			<div class="row-fluid">
+				<div class="span2">
+					<div class="fondDiv">					
+						<h4><i class="icon-arrow-left"></i> <a href="{{ path('front_categorie' , {'id': '1'}) }}">Retour</a></h4>	
+					</div>						
+				</div>
+				<div class="span10">
+					<div class="fondDiv">
+						<div class="row-fluid">
+							<h5>
+								<a href="#">Dessine Moi Un Cadeau</a>
+								>
+								<a href="#">Categorie</a>
+								>
+								<a href="#">Gros menager</a>
+								>
+								<a href="#">Artcile</a>
+								>
+								<a href="#">Article Frigo</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<div class="row"> 
+		<div class="fondDiv">
+			<div class="row-fluid">
+				<div class="span2">
+					<h2>Le concept</h2>
+				</div>			
+				<div class="span10"> 
+					<div class="fondDiv">
+						
+						
+						<h2>Intérêt ?</h2>
+						<br/>
+						Qui n'a jamais eu de difficultés à trouver un cadeau pour un proche ?
+						<br/>
+						D'une manière simple, répondez à quelques questions concernant la personnalité de votre ami et découvrez les cadeaux qui lui correspondront le mieux.<br/>
+						<br/>
+						<br/>
+						<h2>Sur quoi se base le moteur ?</h2>
+						<br/>
+						Le fonctionnement du moteur s'articule autour de trois grands axes: une étude des caractères, une étude des goûts et une étude statistique.
+						<br/>
+						Ce site a été réalisé avec l'aide de personnes qualifiées, l'utilisation d'études psychologiques (notamment autour de la <a href='http://fr.wikipedia.org/wiki/Caractérologie' target='_blank'>caractérologie</a>) ou encore de questionnaires de personnalité largement utilisés en entreprise.
+						<br/>
+						Par exemple, le test PER qui vise à évaluer les grands traits de la personnalité d'un individu. Il comprend 166 items répartis en six principales échelles : Acceptation de soi, Anxiété, Autonomie, Dynamisme, Relations avec les autres et Stabilité émotive. DessineMoiUnCadeau.com intègre ces données. 
+						<br/>
+						<br/>
+						<h2>Le moteur est intelligent.</h2>
+						<br/>
+						Le moteur est intelligent, c'est à dire qu'il analysera les différents choix des utilisateurs de manière à affiner ses résultats. La corrélation entre question et produit n'est même plus a démontrer. Si quelqu'un fait les mêmes choix que vous et apprécie un cadeau, pourquoi pas vous ?
+						<br/>
+						Plus le moteur va être utilisé, plus sa base de connaissances va augmenter. Les propositions deviendront donc de plus en plus précises.
+						<br/>
+						<br/>
+						<h2>La recherche, divertissante et ludique</h2>
+						<br/>
+						La recherche est divertissante et ludique. Elle vous invite à réfléchir réellement au caractère et aux goûts de votre ami. De la même manière qu'avec les tests psychologiques dans les magazines, prenez vous au jeu.
+						<br/>
+						L'interface a été faite de manière à ce que vous puissiez à tout moment consulter une partie des résultats sans avoir à quitter la recherche en cours. Pour cela, rien de plus simple, un clic sur les cadeaux situés sous les questions et vous verrez apparaître les articles correspondants.
+						<br/>
+						Remplir ce questionnaire peut également être fait avec des amis. Nul doute que cette recherche fera naître des discussions intéressantes. Dessinemoiuncadeau est une nouvelle manière de joindre l'utile à l'agréable.
+						<br/>
+						<br/>
+						<h2>De nombreux partenaires</h2>
+						<br/>
+						Là où un site de e-commerce classique se concentre sur l'article du quotidien et là où un site de cadeau se concentre sur l'originalité, Dessinemoiuncadeau, lui, se concentre sur l'idée. Et c'est là une de ses grandes particularités.<br/>
+						Dessinemoiuncadeau vous propose un maximum d'idées et, qui plus est, sur un maximum de sites partenaires aux thèmes différents.
+
+						Pour l'instant Dessinemoiuncadeau travaille avec environ une soixantaine de partenaires qui lui ont fait confiance. Parmi ceux-là, de très grand groupes comme la Fnac, Darty ou encore Conforama. Nul doute, que d'autres entreprises viendront nous rejoindre très bientôt. N'hésitez donc surtout pas à revenir couramment voir les nouveaux produits présentés.
+
+													
+					</div>	
+				</div>	
+			</div>
+			<div class="row-fluid">
+				<div id="scrollToTop">
+					<a href="#">
+					<h5><i class="icon-arrow-up"></i> Remonter</h5>
+					</a>
+				</div>	
+			</div>
+		</div>	
+	</div>
+	
+
+	<div class="row"> 
+		<div class="fondDiv">
+			<div class="row-fluid">
+				<div class="span2">
+					<h2>Qui sommes nous ?</h2>
+				</div>			
+				<div class="span4">
+					<div class="fondDiv">
+						
+						
+						<h2>Le projet</h2>
+						<br/>
+						<h4>Le projet Dessinemoiuncadeau a débuté il y a bientôt un an et demi. Crée par trois ingénieurs et un commercial, il se veut être un outil facilitant la recherche de cadeaux.</h4>
+						<p>Concept novateur, il se révèle être également un défi technique.
+
+						Il permet de mettre l'informatique au service d'un domaine qui pour le moment l'utilise très peu: la psychologie. En effet,la psychologie est un monde fait de nuance, alors que l'informatique, lui, au contraire, est connu pour sa binarité. Il est pourtant tout à fait intéressant de voir qu'en associant des données caractèrologiques à des données statistiques, il est possible de joindre ces deux extrêmes.
+
+						C'est un des défis sur lequel, aujourd'hui dessinemoiuncadeau essaie de travailler.
+						</p>
+													
+					</div>	
+				</div>	
+				<div class="span6">
+					<div class="fondDiv">					
+						<h2>L'équipe</h2>
+						<div class="fondDiv">
+							<div class="row-fluid">
+								<div class="span4">
+									<div class="fondDiv">
+										<img src="http://dessinemoiuncadeau.com/images/avatars/avatar_alan.jpg" alt="">
+				
+									</div>	
+								</div>	
+								<div class="span8">
+									<div class="fondDiv">
+											<h2>Alan</h2>
+											<p>
+											Diplomé de l'ESSEC, de formation ingénieur à l'origine, Alan a toujours été attiré par l'entreprenariat. Initiateur du projet dessinemoiuncadeau, il assure de par son expérience professionnelle, la coordination des taches dans le projet. 
+											</p>	
+											<h4>Son cadeau préféré: Rouleau à Pâtisserie 	</h4>										
+									</div>	
+								</div>									
+							</div>	
+						</div>
+						<div class="fondDiv">
+							<div class="row-fluid">
+								<div class="span4">
+									<div class="fondDiv">
+										<img src="http://dessinemoiuncadeau.com/images/avatars/avatar_mathieu.jpg" alt="">
+				
+									</div>	
+								</div>	
+								<div class="span8">
+									<div class="fondDiv">
+											<h2>Mathieu</h2>
+											<p>
+											L'expérience associative de Mathieu fut utile quand à la gestion de la communication. Expérimenté dans le developpement web, il est le concepteur de l'interface homme-machine (IHM) du site. 
+											</p>	
+											<h4>Son cadeau préféré: Ukulele </h4>										
+									</div>	
+								</div>									
+							</div>	
+						</div>	
+						<div class="fondDiv">
+							<div class="row-fluid">
+								<div class="span4">
+									<div class="fondDiv">
+										<img src="http://dessinemoiuncadeau.com/images/avatars/avatar_julien.jpg" alt="">
+				
+									</div>	
+								</div>	
+								<div class="span8">
+									<div class="fondDiv">
+											<h2>Julien</h2>
+											<p>
+											Chef de projet informatique, il a fait le choix de retourner vers le développement, sa première passion, de manière à en connaitre le mieux possible les mécanismes. C'est donc forcément enthousiaste que Julien a rejoint l'équipe de Dessinemoiuncadeau.com.
+											</p>	
+											<h4>Son cadeau préféré: Tire Bouchon Luxe 	</h4>										
+									</div>	
+								</div>									
+							</div>	
+						</div>	
+						<p>
+						merci à Rémi et Séverin pour nous avoir beaucoup aidé au début du projet.
+
+					</div>	
+				</div>	
+			</div>	
+			<div class="row-fluid">
+				<div id="scrollToTop">
+					<a href="#">
+					<h5><i class="icon-arrow-up"></i> Remonter</h5>
+					</a>
+				</div>	
+			</div>	
+		</div>	
+	</div>	
+	
+</div>
 {% endblock %}

@@ -6,30 +6,14 @@
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 	<script src="{{ asset('bundles/dmcmain/js/DMC_gestionSlider.js') }}"></script>
 {% endblock %}
 {% block jqueryDocumentReady %}
 	{{ parent() }}
 	
 		
-	$(window).scroll(function() {
-		if($(window).scrollTop() == 0){
-		$('#scrollToTop').fadeOut("fast");
-		} else {
-		if($('#scrollToTop').length == 0){
 
-		}
-		$('#scrollToTop').fadeIn("fast");
-		}
-	});
-	
-
-	$('#scrollToTop a').live('click', function(event){
-	event.preventDefault();
-	$('html,body').animate({scrollTop: 0}, 'slow');
-	});
-	
-	
 	
 	
 	
@@ -72,23 +56,16 @@
 		hideOrShow('modificationManuelle');
 	});
 	
-	$( '.sliderProfil' ).hover(
-		function() {
-			$(this).children('div').children('.iconeModifProfil').show();			
-		},
-		function() {
-			$(this).children('div').children('.iconeModifProfil').hide();
-		});
-		
-	$( '.BlocEntete' ).hover(
-		function() {
-			$('.Retour').show();
-			
-		},
-		function() {
-			$('.Retour').hide();
-		});	
-		
+	
+	
+	//======================================>Afficher ou pas l aide sur les jauges
+	$( '.jaugeProfil' ).click(
+	function() {
+		message = '<p><strong><i class="icon-exclamation-sign"></i> Vous ne pouvez pas modifier les profils ici. Il faut retourner sur la page  <a href="{{ path('homepage')}}">d\'accueil</a>.</strong> <p/>';
+		afficherMessageInfo(message, 'alert-error' ,3);
+	
+	});	
+	//======================================>Afficher ou pas l aide sur les jauges
 
 	defineFourchettePrix(10, 70);
 	defineAge(25);
@@ -100,10 +77,14 @@
 	setNonEditableJaugeProfil(2);
 	setNonEditableJaugeProfil(3);
 	
-	messageAccueil = '<p><strong> Alan est gay !</strong><p/>';
+	messageAccueil = '<p><strong> K8 est gay !</strong><p/>';
 	
-	afficherMessageInfo(messageAccueil, 'alert-info' ,3);
-			
+	afficherMessageInfo(messageAccueil, 'alert-info' ,5);
+	
+	
+	
+
+		
 {% endblock %}
 
 {% block title %}
@@ -119,9 +100,10 @@
 		<div class="fondDiv">
 			<div class="row-fluid">
 				<div class="span2">
-					<div class="fondDiv">
-					
-						<h4><i class="icon-arrow-left"></i> <a href="{{ path('homepage')}}">Retour</a></h4>	
+					<div class="fondDiv">					
+						<h4>
+							<i class="icon-arrow-left"></i> <a href="{{ path('homepage')}}">Retour</a>
+						</h4>	
 					</div>						
 				</div>
 				<div class="span10">
@@ -191,8 +173,7 @@
 								<h5>Signaler un abus</h5>	
 							</div>							
 						</div>
-					</div>
-					
+					</div>					
 				</div>
 				<div class="span3">	
 					<div class="row-fluid">
@@ -256,15 +237,15 @@
 							<div id="slider-age"></div>
 						</p>	
 						<p>
-								<input type="radio" name="sex" value="male" /> H
-								<input type="radio" name="sex" value="female" /> F
+							<input type="radio" name="sex" value="male" /> H
+							<input type="radio" name="sex" value="female" /> F
 						</p>	
 					</div>
 				</div>
 				<div class="span3">
 					<div class="fondDiv">
 						<h3>Profil actuel :</h3> 
-						<div class="row-fluid">
+						<div class="row-fluid jaugeProfil">
 							<div class="row-fluid">
 								<div class="span12">
 									<p>Roux <span id="amountProfil1">25</span>%</p>
@@ -272,7 +253,7 @@
 							</div>
 							<div class="row-fluid sliderProfil">
 								<div class="span9">							
-									<div id="slider-profil1"></div>						
+									<div id="slider-profil1"></div>	
 								</div>					
 							</div>
 							<div class="row-fluid">
@@ -391,8 +372,8 @@
 			<div class="row-fluid" >
 				<ul id="carouselCateg" class="thumbnails">
 				{% for i in 1..10 %}
-					<li class="span12 ">
-						<div class="fondDiv shine">
+					<li class="span12">
+						<div id="listeCateg{{i}}" class="fondDiv shine">
 							<div class="row-fluid">
 								<div class="span4">
 									<img src="http://data.blogs.laprovence.com/high-tech-et-jeux-video.blog/perso/aaaxbox360.jpg" width="200px" alt="">			
@@ -422,10 +403,17 @@
 									</div>	
 								</div>	
 								<div class="span3">
-										<h5>Partenaire</h5>	
-										<img src="http://www.le-site-des-livres.com/wp-content/uploads/2011/10/fnac.jpg" width="40px" alt="">	
-										<h6>Articles compris entre</h6>	
-										<h4>5&euro; et 18&euro;</h4>	
+									<div class="row-fluid">
+										<div class="span11">
+											<h5>Partenaire</h5>	
+											<img src="http://www.le-site-des-livres.com/wp-content/uploads/2011/10/fnac.jpg" width="40px" alt="">	
+											<h6>Articles compris entre</h6>	
+											<h4>5&euro; et 18&euro;</h4>	
+										</div>
+										<div class="span1">
+											<a href="#"><i id="removeCategorie{{i}}" class="icon-remove" style="display: none" ></i></a>
+										</div>										
+									</div>
 								</div>
 							</div>
 						</div>
